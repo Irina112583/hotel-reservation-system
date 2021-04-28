@@ -12,7 +12,7 @@ public class HotelGuest extends User{
 	}
 	
 	public void makeRoomReservation() throws ParseException {
-		Rooms.getFreeRooms();
+		Hotel.getFreeRooms();
 		System.out.println("Please enter number of the room that you want to reserve");
 		Scanner in = new Scanner(System.in);
 		int roomNumber = in.nextInt();

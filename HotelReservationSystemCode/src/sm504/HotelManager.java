@@ -1,5 +1,5 @@
 package sm504;
 
-public class HotelManager {
+public class HotelManager extends User{
 
 }
