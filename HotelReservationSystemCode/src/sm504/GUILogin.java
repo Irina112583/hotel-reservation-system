@@ -14,9 +14,6 @@ public class GUILogin extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel pnlLogin;
-	private JPasswordField txtPassword;
-
 
 	public GUILogin() {
 		setBackground(Color.WHITE);
@@ -24,15 +21,12 @@ public class GUILogin extends JFrame {
 		setTitle("SM504 - HOTEL RESERVATION SYSTEM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 680, 750);
-		pnlLogin = new JPanel();
+		JPanel pnlLogin = new JPanel();
 		pnlLogin.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		pnlLogin.setBackground(Color.WHITE);
 		setContentPane(pnlLogin);
 		pnlLogin.setLayout(null);
 		
-		JButton btnLogin = new JButton("LOGIN");
-		btnLogin.setBounds(224, 567, 300, 25);
-		pnlLogin.add(btnLogin);
 		
 		JLabel lblUsername = new JLabel("USERNAME:");
 		lblUsername.setBackground(new Color(192, 192, 192));
@@ -62,7 +56,7 @@ public class GUILogin extends JFrame {
 		lblPassword.setBounds(62, 405, 150, 24);
 		pnlLogin.add(lblPassword);
 		
-		txtPassword = new JPasswordField();
+		JPasswordField txtPassword = new JPasswordField();
 		txtPassword.setBounds(224, 399, 300, 33);
 		txtPassword.setBorder(BorderFactory.createCompoundBorder(border, 
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -96,21 +90,45 @@ public class GUILogin extends JFrame {
 		JButton btnSignUpAs = new JButton("Sign Up as a New User");
 		btnSignUpAs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				try {
-					GUIRegistration register = new GUIRegistration();
-					register.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+			    LoginSingleton.disposeInstance();
+			    RegisterSingleton.getInstance();
 			}
 		});
 		btnSignUpAs.setBounds(224, 605, 300, 25);
 		pnlLogin.add(btnSignUpAs);
 		
+		JButton btnLogin = new JButton("LOGIN");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			JOptionPane.showMessageDialog(null, "Credentials Being Checked...");
+			loginToSystem(txtUsername.getText(), String.valueOf(txtPassword.getPassword()), cmbRole.getSelectedItem().toString());
+			}
+		});
+		btnLogin.setBounds(224, 567, 300, 25);
+		pnlLogin.add(btnLogin);
+		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 10, 10);
 		pnlLogin.add(panel);
 		
+		
 }
+	
+	private void loginToSystem(String username, String password, String role){
+		User u = new User();
+		
+		if (u.getUsername().equals(username) && u.getPassword().equals(password) && u.getRole().equals(role))
+		{
+			LoginSingleton.disposeInstance();
+			GUIUserInfo userFrame = new GUIUserInfo();
+			userFrame.setVisible(true);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Permission Denied!");
+
+		}
+	}
 }
+
