@@ -7,9 +7,7 @@ import java.util.List;
 public class Hotel {	
 	static List<Room> allRooms = new ArrayList<Room>();
 	static ArrayList<Room> freeRooms = new ArrayList<Room>();
-	ArrayList<Reservation> reservations = new ArrayList<Reservation>();
-	
-	static List<EntryCard> allEntryCards = new ArrayList<EntryCard>();
+	static ArrayList<EntryCard> eCards = new ArrayList<EntryCard>();
 	
 	Room testRoomOne = new Room(1);
 	Room testRoomTwo = new Room(2);
@@ -23,23 +21,15 @@ public class Hotel {
 		return freeRooms;
 	}
 	
-	public static Room getRoom(int roomNumber) {
-		for (int i = 0; i < allRooms.size()-1; i++) {
-			if (allRooms.get(i).roomNumber == roomNumber) {
-				return allRooms.get(i);
-			}
-		}
-		return null;
-	}
 	
-	public ArrayList<Reservation> getAllReservations() {
-		return this.reservations;
+	public ArrayList<EntryCard> getAllECards() {
+		return this.eCards;
 	}
 	
 	public static EntryCard getCard(int roomNumber){
-		for (int i = 0; i < allEntryCards.size()-1; i++) {
-			if (allEntryCards.get(i).keyToRoom == roomNumber) {
-				return allEntryCards.get(i);
+		for (int i = 0; i < eCards.size()-1; i++) {
+			if (eCards.get(i).keyToRoom == roomNumber) {
+				return eCards.get(i);
 			}
 		}
 		return null;
