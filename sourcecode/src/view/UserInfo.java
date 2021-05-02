@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import domain.DB;
+import domain.LoginSingleton;
+import domain.RegisterSingleton;
 
 
 
@@ -63,10 +65,11 @@ public class UserInfo extends JFrame {
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		pnlRegister.add(txtPassword);
 		
-		JButton btnDone = new JButton("Skip To Reservation Page");
+		JButton btnDone = new JButton("Start Reservation");
 		btnDone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Reservation res = new Reservation();
+				res.setVisible(true);
 			}
 		});
 
@@ -77,7 +80,7 @@ public class UserInfo extends JFrame {
 		panel.setBounds(0, 0, 10, 10);
 		pnlRegister.add(panel);
 		
-		JLabel lblRetypePassword = new JLabel("Retype Password:");
+		JLabel lblRetypePassword = new JLabel("Repeat Password:");
 		lblRetypePassword.setVisible(false);
 		lblRetypePassword.setForeground(Color.BLACK);
 		lblRetypePassword.setFont(new Font("Calibri", Font.BOLD, 15));

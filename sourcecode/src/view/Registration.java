@@ -93,7 +93,7 @@ public class Registration extends JFrame {
 		panel.setBounds(0, 0, 10, 10);
 		pnlRegister.add(panel);
 		
-		JLabel lblRetypePassword = new JLabel("Retype Password:");
+		JLabel lblRetypePassword = new JLabel("Repeat Password:");
 		lblRetypePassword.setForeground(Color.BLACK);
 		lblRetypePassword.setFont(new Font("Calibri", Font.BOLD, 15));
 		lblRetypePassword.setBackground(Color.LIGHT_GRAY);
