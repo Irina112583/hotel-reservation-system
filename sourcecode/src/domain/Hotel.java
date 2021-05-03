@@ -1,12 +1,13 @@
 package domain;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
+import javax.swing.JOptionPane;
 
 public class Hotel {	
 	static List<Room> allRooms = new ArrayList<Room>();
@@ -79,7 +80,7 @@ public class Hotel {
 		}
 		
 		for (int i = 0; i < hotelGuests.size(); i++) {
-			if (hotelGuests.get(i).username == username) {
+			if (hotelGuests.get(i).userName == username) {
 				if(roomNumber !=0) {
 					hotelGuests.get(i).assignEntryCard(roomNumber);
 					
@@ -102,4 +103,44 @@ public class Hotel {
 		
 		
 	}
+	
+	/* DB & User Part*/
+	
+	DB db = new DBAdapter();
+	
+	public void insertUser(int IDNumber, String fullName, String username, String password, String emailAddress,
+			String role){
+		db.insertUser(IDNumber, fullName, username, password, emailAddress, role);			
+	}
+	
+	public void updateUser(int IDNumber, String fullName, String username, String password, String emailAddress,
+			String role){
+		db.insertUser(IDNumber, fullName, username, password, emailAddress, role);
+		JOptionPane.showMessageDialog(null, "User updated!");
+	}
+	
+	public void deleteUser(int IDNumber){
+		db.deleteUser(IDNumber);
+	}
+	
+	public boolean verifyAccount(String username, String password) throws ClassNotFoundException{
+		return db.verifyAccount(username, password);
+	}
+	
+    public int getIDNumber(){
+    	return db.getIDNumber();
+    }
+    public String getFullName(){
+    	return db.getFullName();
+    }
+    public String getUsername(){
+    	return db.getUsername();
+    }
+    public String getEmailAddress(){
+    	return db.getEmailAddress();
+    }
+    public String getRole(){
+    	return db.getRole();
+    }
+	
 }

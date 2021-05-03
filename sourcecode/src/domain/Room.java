@@ -1,9 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class Room implements Reservation{
 	public int roomNumber;
@@ -34,7 +32,7 @@ public class Room implements Reservation{
 	}
 	
 	public Reservation makeReservation(HotelGuest hotelGuest, ArrayList<Date> occupiedDates, int roomNumber) {
-		System.out.println("A new reservation was created for the hotel guest " + hotelGuest.username +
+		System.out.println("A new reservation was created for the hotel guest " + hotelGuest.userName +
 				" for the room " + roomNumber + " on the following dates " + occupiedDates);
 		return new Room(roomNumber, occupiedDates, hotelGuest);
 	}

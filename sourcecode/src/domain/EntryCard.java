@@ -14,11 +14,12 @@ public class EntryCard {
 	
 	public void assignSelfToHotelGuest(HotelGuest cardHolder) {
 		this.cardHolder = cardHolder;
-		System.out.println("The entry card " + this + " was assigned a hotel guest " + this.cardHolder.username);
+		System.out.println("The entry card " + this + " was assigned a hotel guest " + this.cardHolder.userName);
 	}
 	
 	public void assignReservation(ArrayList<Date> occupiedDates) {
 		Room newRoomReservation = new Room(keyToRoom);
 		this.reservation = newRoomReservation.makeReservation(this.cardHolder, occupiedDates, keyToRoom);//
 	}
+
 }
