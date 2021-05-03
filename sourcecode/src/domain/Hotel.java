@@ -46,7 +46,6 @@ public class Hotel {
 		for (int i = 0; i < allRooms.size(); i++) {
 			if (allRooms.get(i).roomName == roomName) {
 				roomNumber = allRooms.get(i).roomNumber;
-				allRooms.get(i).reserve(roomNumber, new Date(), checkoutDate);
 			}
 		}
 		

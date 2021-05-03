@@ -34,26 +34,8 @@ public class Room implements Reservation{
 	}
 	
 	public Reservation makeReservation(HotelGuest hotelGuest, ArrayList<Date> occupiedDates, int roomNumber) {
-		System.out.println("A new reservation was created for the hotel guest " + hotelGuest +
+		System.out.println("A new reservation was created for the hotel guest " + hotelGuest.username +
 				" for the room " + roomNumber + " on the following dates " + occupiedDates);
 		return new Room(roomNumber, occupiedDates, hotelGuest);
-	}
-	
-	public void reserve(int roomNumber, Date checkinDate, Date checkoutDate) {
-		ArrayList<Date> dates = new ArrayList<Date>();
-	    Calendar calendar = new GregorianCalendar();
-	    calendar.setTime(checkinDate);
-	 
-	    while (calendar.getTime().before(checkoutDate))
-	    {
-	        Date result = calendar.getTime();
-	        dates.add(result);
-	        calendar.add(Calendar.DATE, 1);
-	    }
-	    
-	    dates.add(checkoutDate);
-	    
-	    this.setOccupiedDates(dates);
-	    System.out.println(occupiedDates);
 	}
 }
