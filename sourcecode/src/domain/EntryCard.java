@@ -8,10 +8,13 @@ public class EntryCard {
 	HotelGuest cardHolder;
 	Reservation reservation;
 	
-	public EntryCard assignSelfToHotelGuest(HotelGuest cardHolder) {
+	public EntryCard(int keyToRoom) {
+		this.keyToRoom = keyToRoom;
+	}
+	
+	public void assignSelfToHotelGuest(HotelGuest cardHolder) {
 		this.cardHolder = cardHolder;
 		System.out.println("To the entry card " + this + " was assigned a hotel guest " + this.cardHolder);
-		return this;
 	}
 	
 	public void assignReservation(ArrayList<Date> occupiedDates) {
