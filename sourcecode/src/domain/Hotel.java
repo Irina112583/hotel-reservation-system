@@ -30,6 +30,9 @@ public class Hotel {
 	}
 	
 	public ArrayList<Room> getFreeRooms(Date checkoutDate) throws ParseException{
+		allRooms.clear();
+		freeRooms.clear();
+		System.out.println(allRooms);
 		createTestData();
 		
 		Date dateToCheck;
@@ -64,6 +67,7 @@ public class Hotel {
 			}
 		}
 		
+	    System.out.println(freeRooms);
 		return freeRooms;
 	}
 	
