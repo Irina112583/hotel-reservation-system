@@ -196,15 +196,20 @@ public class UserInfo extends JFrame {
 				btnSave.setVisible(false);
 				txtPassword.setVisible(false);
 				txtPassword.setEnabled(false);
-				lblPassword.setEnabled(false);
+				lblPassword.setVisible(false);
 				txtRetypePassword.setVisible(false);
 				txtRetypePassword.setEnabled(false);
 				lblRetypePassword.setVisible(false);
 				txtName.setEnabled(false);
 				txtUsername.setEnabled(false);
 				txtEmailAddress.setEnabled(false);
-				btnApprovals.setVisible(true);
-				btnMonitorSystem.setVisible(true);
+				btnStartReservation.setEnabled(true);
+				if(hotel.getIDNumber() == 1)
+				{
+					btnApprovals.setVisible(true);
+					btnMonitorSystem.setVisible(true);
+				}
+				
 			}
 		});
 		btnSave.setBounds(861, 292, 147, 25);
@@ -218,6 +223,7 @@ public class UserInfo extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				btnStartReservation.setEnabled(false);
 				btnSave.setVisible(true);
 				txtPassword.setVisible(true);
 				txtPassword.setEnabled(true);

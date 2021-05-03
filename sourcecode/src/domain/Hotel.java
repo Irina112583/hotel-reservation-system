@@ -115,8 +115,8 @@ public class Hotel {
 	
 	public void updateUser(int IDNumber, String fullName, String username, String password, String emailAddress,
 			String role){
-		db.insertUser(IDNumber, fullName, username, password, emailAddress, role);
-		JOptionPane.showMessageDialog(null, "User updated!");
+		db.updateUser(IDNumber, fullName, username, password, emailAddress, role);
+
 	}
 	
 	public void deleteUser(int IDNumber){

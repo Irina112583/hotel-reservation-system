@@ -55,25 +55,20 @@ public class DBSQLiteAdapter{
     }
     
     public void updateUser(int IDNumber, String fullName, String username, String password, String emailAddress, String role){
-    	String sql = "UPDATE User SET IDNumber = ?"
-    			+ "Fullname = ? "
-                + "Username = ? "
-                + "Password = ? "
-                + "EmailAddress = ? "
-                + "Role = ? "
-                + "WHERE IDNumber = ?";
+//    	String sql = "UPDATE User SET Fullname = ? , "
+//                + "Password = ? "
+//                + "EmailAddress = ? "
+//                + "WHERE IDNumber = ?";
+    	
+    	String sql = "UPDATE User SET Fullname = '"+fullName+"' ,Password = '"+password+"' ,EmailAddress = '"+emailAddress+"' WHERE IDNumber = "+IDNumber+"";
     	
         try (Connection conn = this.connect();
                 PreparedStatement pst = conn.prepareStatement(sql)) {
-
-			pst.setInt(1, IDNumber);
-			pst.setString(2,fullName);
-			pst.setString(3, username);
-			pst.setString(4, password);
-			pst.setString(5, emailAddress);
-			pst.setString(6, role);
-            // update 
-            pst.executeUpdate();
+            pst.execute();
+    		JOptionPane.showMessageDialog(null, "User updated!");
+    		setFullName(fullName);
+    		setEmailAddress(emailAddress);
+    		setPassword(password);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -109,6 +104,7 @@ public class DBSQLiteAdapter{
                 	setPassword(rs.getString(4));
                 	setEmailAddress(rs.getString(5));
                 	setRole(rs.getString(6));
+                	
                 	JOptionPane.showMessageDialog(null, "Authentication is OK!");
                 }
                 

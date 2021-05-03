@@ -23,8 +23,6 @@ Documents, related to the Iteration II are listed below: 
 3. Design Document - 'Design Document.docx'
 4. Test Cases - 'Test Cases_v1.0.docx'
 5. Source code - all files if the folder 'sourcecode'
-6. Executable partial system - 
-
-Notes for Iteration II artifacts: UC1 was implemented with connetion to database, however for the current interation only partial implementation of the UC 2 was planned. That is why UC2 is not connected to database and works with fabricated data.
+6. Executable partial system - all files in executable folder
 
 All necessary documents are located in the main branch.

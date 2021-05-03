@@ -1,14 +1,6 @@
 package domain;
 
 import java.awt.EventQueue;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import view.UserInfo;
-
 public class Main {
 
 	/**
