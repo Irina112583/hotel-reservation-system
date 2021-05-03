@@ -8,5 +8,5 @@ public interface Reservation {
 	ArrayList<Date> occupiedDates = new ArrayList<Date>();
 	int roomNumber = 0;
 	
-	public void makeReservation(HotelGuest hotelGuest, ArrayList<Date> occupiedDates, int roomNumber);
+	public Reservation makeReservation(HotelGuest hotelGuest, ArrayList<Date> occupiedDates, int roomNumber);
 }

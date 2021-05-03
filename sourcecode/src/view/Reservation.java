@@ -1,13 +1,20 @@
 package view;
+import java.util.ArrayList;
 import java.util.Date;
+
+import javax.swing.JOptionPane;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat; 
+
+import domain.Hotel;
+import domain.Room;
 
 
 public class Reservation extends javax.swing.JFrame {
 
 	public Reservation() {
-        Date today = new Date();
         initComponents();
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -32,11 +39,7 @@ public class Reservation extends javax.swing.JFrame {
 
         roomsSP.setVisible(false);
 
-        roomsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        
         roomsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         roomsList.setFixedCellHeight(20);
         roomsList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -50,18 +53,28 @@ public class Reservation extends javax.swing.JFrame {
         reserveB.setVisible(false);
         reserveB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reserveBActionPerformed(evt);
+                try {
+					reserveBActionPerformed(evt);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
         dateFF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/y"))));
         dateFF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        dateFF.setText("1/1/2001");
+        dateFF.setText("5/5/2021");
 
         enterB.setText("Enter");
         enterB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enterBActionPerformed(evt);
+                try {
+					enterBActionPerformed(evt);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -132,14 +145,40 @@ public class Reservation extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void reserveBActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    private void reserveBActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {
+        String roomName = roomsList.getSelectedValue();
+        Hotel hotel = new Hotel();
         
+        Date checkoutDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateFF.getText());
+        hotel.assignRoomToHotelGuest("username", roomName, checkoutDate);
+        int input = JOptionPane.showOptionDialog(null, "Please, ask receptionst for you entry card", "Reservation Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
+
+        if(input == JOptionPane.OK_OPTION)
+        {
+        	this.setVisible(false);
+        }
     }
 
-    private void enterBActionPerformed(java.awt.event.ActionEvent evt) {
+    private void enterBActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {
         roomsL.setVisible(true);
         roomsSP.setVisible(true);
+        
+        Hotel hotel = new Hotel();
+        
+        ArrayList<Room> freeRooms = hotel.getFreeRooms(new SimpleDateFormat("dd/MM/yyyy").parse(dateFF.getText()));
+        
+        ArrayList<String> roomNames = new ArrayList<String>(); 
+        
+        for(int i=0; i<freeRooms.size(); i++) {
+        	String newRoomName = freeRooms.get(i).roomName;
+        	roomNames.add(newRoomName);	
+        }
+        
+        roomsList.setModel(new javax.swing.AbstractListModel<String>() {
+            ArrayList<String> strings = roomNames;
+            public int getSize() { return strings.size(); }
+            public String getElementAt(int i) { return strings.get(i); }
+        });
     }
 
     private void roomsListValueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -168,9 +207,6 @@ public class Reservation extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Reservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Reservation().setVisible(true);
