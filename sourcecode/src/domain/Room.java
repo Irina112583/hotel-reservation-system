@@ -5,9 +5,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class Room {
+public class Room implements Reservation{
 	int roomNumber;
 	ArrayList<Date> occupiedDates;
+	HotelGuest hotelGuest;
 		
 	public Room(int roomNumber){
 		this.roomNumber = roomNumber;
@@ -23,6 +24,12 @@ public class Room {
             this.occupiedDates.add(newOccupiedDates.get(i));
         }
 		
+	}
+	
+	public void makeReservation(HotelGuest hotelGuest, ArrayList<Date> occupiedDates, int roomNumber) {
+		this.hotelGuest = hotelGuest;
+		this.occupiedDates = occupiedDates;
+		this.roomNumber = roomNumber;
 	}
 	
 	public void reserve(int roomNumber, Date checkinDate, Date checkoutDate) {

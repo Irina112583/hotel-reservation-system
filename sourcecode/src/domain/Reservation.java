@@ -3,14 +3,10 @@ package domain;
 import java.util.Date;
 import java.util.ArrayList;
 
-public class Reservation {
-	HotelGuest hotelGuest;
+public interface Reservation {
+	HotelGuest hotelGuest = new HotelGuest();
 	ArrayList<Date> occupiedDates = new ArrayList<Date>();
-	int roomNumber;
+	int roomNumber = 0;
 	
-	public void makeReservation(HotelGuest hotelGuest, ArrayList<Date> occupiedDates, int roomNumber) {
-		this.hotelGuest = hotelGuest;
-		this.occupiedDates = occupiedDates;
-		this.roomNumber = roomNumber;
-	}
+	public void makeReservation(HotelGuest hotelGuest, ArrayList<Date> occupiedDates, int roomNumber);
 }
