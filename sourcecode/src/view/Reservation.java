@@ -2,6 +2,7 @@ package view;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.AbstractListModel;
 import javax.swing.JOptionPane;
 
 import java.text.ParseException;
@@ -160,25 +161,31 @@ public class Reservation extends javax.swing.JFrame {
     }
 
     private void enterBActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {
-        roomsL.setVisible(true);
+    	roomsL.setVisible(true);
         roomsSP.setVisible(true);
+        
         
         Hotel hotel = new Hotel();
         
         ArrayList<Room> freeRooms = hotel.getFreeRooms(new SimpleDateFormat("dd/MM/yyyy").parse(dateFF.getText()));
         
+        
         ArrayList<String> roomNames = new ArrayList<String>(); 
         
-        for(int i=0; i<freeRooms.size(); i++) {
+        for(int i=0; i < freeRooms.size(); i++) {
         	String newRoomName = freeRooms.get(i).roomName;
         	roomNames.add(newRoomName);	
         }
         
-        roomsList.setModel(new javax.swing.AbstractListModel<String>() {
-            ArrayList<String> strings = roomNames;
-            public int getSize() { return strings.size(); }
-            public String getElementAt(int i) { return strings.get(i); }
-        });
+        if (roomNames.size() != 0 ) {
+        	roomsList.setModel(new javax.swing.AbstractListModel<String>() {
+                ArrayList<String> strings = roomNames;
+                public int getSize() { return strings.size(); }
+                public String getElementAt(int i) { return strings.get(i); }
+            });
+        } else {
+        	int input = JOptionPane.showOptionDialog(null, "There are no available rooms for specified dates. Please, choose another date range", "No rooms", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
+        };
     }
 
     private void roomsListValueChanged(javax.swing.event.ListSelectionEvent evt) {

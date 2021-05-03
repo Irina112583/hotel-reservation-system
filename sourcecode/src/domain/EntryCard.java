@@ -14,7 +14,7 @@ public class EntryCard {
 	
 	public void assignSelfToHotelGuest(HotelGuest cardHolder) {
 		this.cardHolder = cardHolder;
-		System.out.println("To the entry card " + this + " was assigned a hotel guest " + this.cardHolder.username);
+		System.out.println("The entry card " + this + " was assigned a hotel guest " + this.cardHolder.username);
 	}
 	
 	public void assignReservation(ArrayList<Date> occupiedDates) {

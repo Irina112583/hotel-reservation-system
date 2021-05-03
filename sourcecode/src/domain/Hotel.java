@@ -16,7 +16,7 @@ public class Hotel {
 	
 	public void createTestData() throws ParseException{
 		ArrayList<Date> occupiedDates = new ArrayList<Date>();
-		occupiedDates.add(new SimpleDateFormat("dd/MM/yyyy").parse("06/05/2021"));
+		occupiedDates.add(new SimpleDateFormat("dd/MM/yyyy").parse("11/05/2021"));
 		Room testRoomOne = new Room(1, "Room 1", occupiedDates);
 		Room testRoomTwo = new Room(2, "Room 2", occupiedDates);
 	
@@ -32,11 +32,38 @@ public class Hotel {
 	public ArrayList<Room> getFreeRooms(Date checkoutDate) throws ParseException{
 		createTestData();
 		
-		for (int i = 0; i < allRooms.size(); i++) {
-			if (!allRooms.get(i).occupiedDates.contains(Calendar.getInstance().getTime())) {
+		Date dateToCheck;
+		
+		Calendar calendar = new GregorianCalendar();
+	    calendar.setTime(new Date());
+	    
+	    while (calendar.getTime().before(checkoutDate))
+	    {
+	    	Date result = calendar.getTime();
+	    	dateToCheck = result;
+	    	for (int i = 0; i < allRooms.size(); i++) {
+				if ((!allRooms.get(i).occupiedDates.contains(dateToCheck)) && (!freeRooms.contains(allRooms.get(i)))) {
+					freeRooms.add(allRooms.get(i));
+				}
+				if ((allRooms.get(i).occupiedDates.contains(dateToCheck)) && (freeRooms.contains(allRooms.get(i)))) {
+					freeRooms.remove(allRooms.get(i));
+				}
+			}
+	    	
+	        calendar.add(Calendar.DATE, 1);
+	    }
+	    
+	    dateToCheck = checkoutDate;
+	    
+	    for (int i = 0; i < allRooms.size(); i++) {
+			if (!allRooms.get(i).occupiedDates.contains(dateToCheck) && (!freeRooms.contains(allRooms.get(i)))) {
 				freeRooms.add(allRooms.get(i));
 			}
+			if ((allRooms.get(i).occupiedDates.contains(dateToCheck)) && (freeRooms.contains(allRooms.get(i)))) {
+				freeRooms.remove(allRooms.get(i));
+			}
 		}
+		
 		return freeRooms;
 	}
 	
