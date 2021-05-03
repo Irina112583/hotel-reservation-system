@@ -19,6 +19,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.SoftBevelBorder;
 
+import domain.Hotel;
 import domain.LoginSingleton;
 import domain.RegisterSingleton;
 
@@ -78,7 +79,7 @@ public class Registration extends JFrame {
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		pnlRegister.add(txtPassword);
 		
-		JButton btnExit = new JButton("Close");
+		JButton btnExit = new JButton("Back");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegisterSingleton.disposeInstance();
@@ -113,10 +114,6 @@ public class Registration extends JFrame {
 		lblEmailAddress.setBounds(62, 656, 150, 24);
 		pnlRegister.add(lblEmailAddress);
 		
-		JButton btnSendApproval = new JButton("Send Register Approval");
-		btnSendApproval.setBounds(224, 787, 300, 25);
-		pnlRegister.add(btnSendApproval);
-		
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setForeground(Color.BLACK);
 		lblUsername.setFont(new Font("Calibri", Font.BOLD, 15));
@@ -136,7 +133,7 @@ public class Registration extends JFrame {
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		pnlRegister.add(txtEmailAddress);
 		
-		JLabel lblID = new JLabel("ID:");
+		JLabel lblID = new JLabel("ID Number:");
 		lblID.setForeground(Color.BLACK);
 		lblID.setFont(new Font("Calibri", Font.BOLD, 15));
 		lblID.setBackground(Color.LIGHT_GRAY);
@@ -161,6 +158,17 @@ public class Registration extends JFrame {
 		pnlRegister.add(cmbRole);
 		cmbRole.addItem("Receptionist");
 		cmbRole.addItem("Guest");
+		
+		JButton btnSignUp = new JButton("Sign Up");
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Hotel hotel = new Hotel();
+				hotel.insertUser(Integer.parseInt(txtID.getText()), txtName.getText(),txtUsername.getText(),txtPassword.getText(),txtEmailAddress.getText(), cmbRole.getSelectedItem().toString());
+			btnSignUp.setEnabled(false);
+			}
+		});
+		btnSignUp.setBounds(224, 787, 300, 25);
+		pnlRegister.add(btnSignUp);
 		
 	}
 }

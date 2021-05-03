@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import domain.Hotel;
 import domain.LoginSingleton;
 import domain.RegisterSingleton;
 import domain.User;
@@ -91,8 +92,21 @@ public class Login extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-			JOptionPane.showMessageDialog(null, "Credentials Being Checked...");
-			u.LoginToSystem(txtUsername.getText(), String.valueOf(txtPassword.getPassword()));
+			Hotel hotel = new Hotel();
+			try {
+				if(hotel.verifyAccount(txtUsername.getText(), txtPassword.getText()) == true){
+					LoginSingleton.disposeInstance();
+					UserInfo userFrame = new UserInfo();
+					userFrame.setVisible(true);
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Authentication denied! "
+							+ "The username or password has been refused by System."
+							+ " Please try again.");
+				}
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}
 			}
 		});
 		btnLogin.setBounds(224, 485, 300, 25);
