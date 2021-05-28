@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+
 import javax.swing.JOptionPane;
 
 public class Hotel {	
@@ -14,6 +16,17 @@ public class Hotel {
 	static ArrayList<Room> freeRooms = new ArrayList<Room>();
 	ArrayList<User> users = new ArrayList<User>();
 	ArrayList<HotelGuest> hotelGuests = new ArrayList<HotelGuest>();
+	
+	public HashMap<Integer,TimeSlot> cleaningTimeSlots = new HashMap<Integer, TimeSlot>();
+
+	public boolean setAvailableDates(ArrayList<Integer> dates) {
+		for(int date: dates)
+		{
+			cleaningTimeSlots.put(date,new TimeSlot());
+		}
+		return true;
+	}
+	
 	
 	public void createTestData() throws ParseException{
 		ArrayList<Date> occupiedDates = new ArrayList<Date>();
@@ -24,11 +37,14 @@ public class Hotel {
 		allRooms.add(testRoomOne);
 		allRooms.add(testRoomTwo);
 	
-		HotelGuest hgtest = new HotelGuest();
+		HotelGuest hgtest = new HotelGuest(this);
 		hgtest.setUserName("username");
 	
 		hotelGuests.add(hgtest);
 	}
+	
+	
+	
 	
 	public ArrayList<Room> getFreeRooms(Date checkoutDate) throws ParseException{
 		allRooms.clear();

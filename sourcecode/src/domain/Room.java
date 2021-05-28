@@ -30,10 +30,26 @@ public class Room implements Reservation{
             this.occupiedDates.add(newOccupiedDates.get(i));
         }
 	}
-	
-	public Reservation makeReservation(HotelGuest hotelGuest, ArrayList<Date> occupiedDates, int roomNumber) {
+
+	public boolean makeReservation(HotelGuest hotelGuest, ArrayList<Integer> occupiedDates, int roomNumber) {
 		System.out.println("A new reservation was created for the hotel guest " + hotelGuest.userName +
 				" for the room " + roomNumber + " on the following dates " + occupiedDates);
-		return new Room(roomNumber, occupiedDates, hotelGuest);
+		return true;
 	}
+
+	public boolean updateReservation(HotelGuest hotelGuest, ArrayList<Integer> occupiedDates, int roomNumber)
+	{
+		return false;
+	}
+	
+
+	public int getReservationCharge(int roomNumber) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public String getReservationDetail(int cardNumber)
+	{
+	}
+
 }

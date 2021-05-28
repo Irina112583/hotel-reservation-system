@@ -1,15 +1,16 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 
 public class EntryCard {
-	int keyToRoom;
+	int roomNumber;
+	int cardNumber;
+
 	HotelGuest cardHolder;
-	Reservation reservation;
+	HashMap<Integer, Reservation> reservations = new HashMap<Integer, Reservation>();
 	
-	public EntryCard(int keyToRoom) {
-		this.keyToRoom = keyToRoom;
+	public EntryCard(int roomNumber) {
+		this.roomNumber = roomNumber;
 	}
 	
 	public void assignSelfToHotelGuest(HotelGuest cardHolder) {
@@ -17,9 +18,31 @@ public class EntryCard {
 		System.out.println("The entry card " + this + " was assigned a hotel guest " + this.cardHolder.userName);
 	}
 	
-	public void assignReservation(ArrayList<Date> occupiedDates) {
-		Room newRoomReservation = new Room(keyToRoom);
-		this.reservation = newRoomReservation.makeReservation(this.cardHolder, occupiedDates, keyToRoom);//
+	public int getRoomNumber()
+	{
+		return roomNumber;
+	}
+	
+	public int getCardNumber()
+	{
+		return cardNumber;
+	}
+	
+	public void addReservation(Reservation reservation, int reservationId) {
+		reservations.put(reservationId, reservation);
+	}
+	
+	public void updateReservation(Reservation reservation, int reservationId) {
+		reservations.remove(reservationId);
+		reservations.put(reservationId, reservation);
+	}
+	
+	public void deleteReservation(int reservationId) {
+		reservations.remove(reservationId);
+	}
+	
+	public HashMap<Integer, Reservation> getReservations(Reservation reservation, int reservationId) {
+		return reservations;
 	}
 
 }
