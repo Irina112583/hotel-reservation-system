@@ -13,7 +13,7 @@ public class User {
 	Hotel hotel;
 
 	
-	User(Hotel h){
+	public User(Hotel h){
 		hotel = h;
 	}
 	
