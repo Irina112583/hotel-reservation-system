@@ -12,6 +12,8 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 public class Hotel {	
+	
+	
 
 	ArrayList<User> users = new ArrayList<User>();
 	ArrayList<HotelGuest> hotelGuests = new ArrayList<HotelGuest>();
@@ -20,8 +22,20 @@ public class Hotel {
 	
 	public HashMap<Integer,TimeSlot> cleaningTimeSlots = new HashMap<Integer, TimeSlot>();
 	public HashMap<Integer,Room> allRooms = new HashMap<Integer, Room>();
+	public User currentUser;
 
-
+	public Hotel() {
+		String role = this.getRole();
+		
+		if(role.equals("Receptionist")) {
+			this.currentUser = new Receptionist(this);
+		} else if(role.equals("Guest")) {
+			this.currentUser = new HotelGuest(this);
+		} else if(role.equals("Manager")) {
+			this.currentUser = new HotelManager(this);
+		}
+	}
+	
 	public boolean setAvailableCleaningDates(ArrayList<Integer> dates) {
 		for(int date: dates)
 		{
