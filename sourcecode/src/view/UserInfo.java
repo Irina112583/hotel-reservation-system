@@ -19,9 +19,7 @@ public class UserInfo extends JFrame {
 	 */
 
 	
-	public UserInfo() {
-		
-		Hotel hotel = new Hotel();
+	public UserInfo(Hotel hotel) {
 
 		
 		setBackground(Color.WHITE);
@@ -98,7 +96,7 @@ public class UserInfo extends JFrame {
 		
 		btnOrderCleaningReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CleaningServiceReservation res = new CleaningServiceReservation();
+				CleaningServiceReservation res = new CleaningServiceReservation(hotel);
 				res.setVisible(true);	
 			}
 		});
