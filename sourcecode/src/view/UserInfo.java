@@ -94,11 +94,59 @@ public class UserInfo extends JFrame {
 			}
 		});
 		
+		JButton btnOrderCleaningReservation = new JButton("Order Additional Cleaning Service");
+		
+		btnOrderCleaningReservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CleaningServiceReservation res = new CleaningServiceReservation();
+				res.setVisible(true);	
+			}
+		});
+		
+		JButton btnOrderedCleaningReservations = new JButton("Handle Additional Cleaning Service");
+		
+		btnOrderedCleaningReservations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UpdateOrderedCleaningServices handleCS = new UpdateOrderedCleaningServices();
+				handleCS.setVisible(true);	
+			}
+		});
+		
+		JButton btnHandleCashPayment = new JButton("Handle Cash Payment");
+		
+		btnHandleCashPayment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CashPayment handlePayment = new CashPayment();
+				handlePayment.setVisible(true);	
+			}
+		});
+		
+		JButton btnMonitorReservations = new JButton("Monitor Reservations");
+		
+		btnMonitorReservations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MonitorReservations monitorReservations = new MonitorReservations();
+				monitorReservations.setVisible(true);	
+			}
+		});
+		
 		btnStartReservation.setBounds(861, 247, 147, 25);
 		pnlRegister.add(btnStartReservation);
 		
 		btnEditReservation.setBounds(861, 287, 147, 25);
 		pnlRegister.add(btnEditReservation);
+		
+		btnOrderCleaningReservation.setBounds(551, 247, 247, 25);
+		pnlRegister.add(btnOrderCleaningReservation);
+		
+		btnOrderedCleaningReservations.setBounds(551, 287, 247, 25);
+		pnlRegister.add(btnOrderedCleaningReservations);
+		
+		btnHandleCashPayment.setBounds(551, 247, 247, 25);
+		pnlRegister.add(btnHandleCashPayment);
+		
+		btnMonitorReservations.setBounds(661, 327, 247, 25);
+		pnlRegister.add(btnMonitorReservations);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 10, 10);
@@ -222,13 +270,23 @@ public class UserInfo extends JFrame {
 				txtName.setEnabled(false);
 				txtUsername.setEnabled(false);
 				txtEmailAddress.setEnabled(false);
-				btnStartReservation.setEnabled(true);
 				if(hotel.getIDNumber() == 1)
 				{
 					btnApprovals.setVisible(true);
 					btnMonitorSystem.setVisible(true);
+					btnMonitorReservations.setVisible(true);
 				}
-				
+				if(hotel.getRole().equals("Receptionist")) {
+					btnStartReservation.setVisible(true);
+					btnHandleCashPayment.setVisible(true);
+					btnEditReservation.setVisible(true);
+					btnMonitorReservations.setVisible(true);
+				}
+				if(hotel.getRole().equals("Guest")) {
+					btnStartReservation.setVisible(true);
+					btnOrderedCleaningReservations.setVisible(true);
+					btnOrderCleaningReservation.setVisible(true);
+				}
 			}
 		});
 		btnSave.setBounds(861, 292, 147, 25);
@@ -242,7 +300,12 @@ public class UserInfo extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnStartReservation.setEnabled(false);
+				btnStartReservation.setVisible(false);
+				btnEditReservation.setVisible(false);
+				btnOrderedCleaningReservations.setVisible(false);
+				btnOrderCleaningReservation.setVisible(false);
+				btnHandleCashPayment.setVisible(false);
+				btnMonitorReservations.setVisible(false);
 				btnSave.setVisible(true);
 				txtPassword.setVisible(true);
 				txtPassword.setEnabled(true);
@@ -254,7 +317,6 @@ public class UserInfo extends JFrame {
 				txtEmailAddress.setEnabled(true);
 				btnMonitorSystem.setVisible(false);
 				btnApprovals.setVisible(false);
-				
 			}
 		});
 		updateOptionMenu.setVisible(true);
@@ -294,6 +356,28 @@ public class UserInfo extends JFrame {
 			btnMonitorSystem.setVisible(true);
 			btnApprovals.setVisible(true);
 			btnStartReservation.setVisible(false);
+			btnEditReservation.setVisible(false);
+			btnOrderCleaningReservation.setVisible(false);
+			btnOrderedCleaningReservations.setVisible(false);
+			btnHandleCashPayment.setVisible(false);
+			btnMonitorReservations.setVisible(true);
+		}
+		
+		if(hotel.getRole().equals("Guest"))
+		{
+			btnEditReservation.setVisible(false);
+			btnOrderCleaningReservation.setVisible(true);
+			btnOrderedCleaningReservations.setVisible(true);
+			btnHandleCashPayment.setVisible(false);
+			btnMonitorReservations.setVisible(false);
+		}
+		
+		if(hotel.getRole().equals("Receptionist"))
+		{
+			btnOrderCleaningReservation.setVisible(false);
+			btnOrderedCleaningReservations.setVisible(false);
+			btnHandleCashPayment.setVisible(true);
+			btnMonitorReservations.setVisible(true);
 		}
 		
 		JMenu mnOptions = new JMenu("More Options...");
