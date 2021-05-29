@@ -2,54 +2,114 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Room implements Reservation{
-	public int roomNumber;
-	ArrayList<Date> occupiedDates;
-	HotelGuest hotelGuest;
-	public String roomName;
-		
-	public Room(int roomNumber){
+	private int roomNumber;
+	HashMap<Integer, ArrayList<Integer>> occupiedDates = new HashMap<Integer, ArrayList<Integer>>();
+	private boolean availability;
+	private final int roomPrice = 200;
+	
+	
+	public Room(int roomNumber, boolean availability){
 		this.roomNumber = roomNumber;
+		this.availability = availability;
 	}
 	
-	public Room(int roomNumber, String roomName, ArrayList<Date> occupiedDates){
-		this.roomNumber = roomNumber;
-		this.occupiedDates = occupiedDates;
-		this.roomName = roomName;
-	}
-	
-	public Room(int roomNumber, ArrayList<Date> occupiedDates, HotelGuest hotelGuest){
-		this.roomNumber = roomNumber;
-		this.occupiedDates = occupiedDates;
-		this.hotelGuest = hotelGuest;
-	}
-	
-	public void setOccupiedDates(ArrayList<Date> newOccupiedDates) {
-		for (int i=0; i<newOccupiedDates.size(); i++) {
-            this.occupiedDates.add(newOccupiedDates.get(i));
-        }
+
+
+	public boolean makeReservation(int cardNumber, ArrayList<Integer>reservationDates) {
+		if(occupiedDates.containsKey(cardNumber) || availability == false)
+		{
+			return false;
+		}
+		else
+		{
+			occupiedDates.put(cardNumber, reservationDates);
+			return true;
+		}
 	}
 
-	public boolean makeReservation(HotelGuest hotelGuest, ArrayList<Integer> occupiedDates, int roomNumber) {
-		System.out.println("A new reservation was created for the hotel guest " + hotelGuest.userName +
-				" for the room " + roomNumber + " on the following dates " + occupiedDates);
-		return true;
-	}
-
-	public boolean updateReservation(HotelGuest hotelGuest, ArrayList<Integer> occupiedDates, int roomNumber)
+	public boolean updateReservation(int cardNumber, ArrayList<Integer>reservationDates)
 	{
+		if(occupiedDates.containsKey(cardNumber))
+		{
+			occupiedDates.remove(cardNumber);
+			occupiedDates.put(cardNumber, reservationDates);
+			return true;
+		}
+		else
+		{
+			
+			return false;
+		}
+	}
+	
+	public boolean cancelReservation(int cardNumber)
+	{
+		if(occupiedDates.containsKey(cardNumber))
+		{
+			occupiedDates.remove(cardNumber);
+			return true;
+		}
+		else
+		{
+			
+			return false;
+		}
+	}
+	
+	public boolean checkReservation(int cardNumber, ArrayList<Integer> dates)
+	{
+		return occupiedDates.get(cardNumber) == dates;
+	}
+	
+
+	public HashMap<Integer, ArrayList<Integer>> getOccupiedDays() {
+		return occupiedDates;
+	}
+	
+	public boolean checkAvailabilty(ArrayList<Integer> dates) {
+		for(int i: occupiedDates.keySet())
+		{
+			for(Integer j: dates)
+			{
+				if(occupiedDates.get(i).contains(j))
+				{
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 	
-
-	public int getReservationCharge(int roomNumber) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getReservationCharge(int cardNumber) {
+		if(occupiedDates.containsKey(cardNumber))
+		{
+			return occupiedDates.get(cardNumber).size()*roomPrice;
+		}
+		else
+		{
+			
+			return 0;
+		}
 	}
 	
 	public String getReservationDetail(int cardNumber)
 	{
+		return "Room Reservation on " + String.valueOf(roomNumber) + " for " + String.valueOf(occupiedDates.get(cardNumber).size()) + " days.";
+	}
+
+	public boolean getAvailability() {
+		return availability;
+	}
+
+	public boolean setAvailability(boolean availability) {
+		if(occupiedDates.size() == 0) {
+			this.availability = availability;
+			return true;
+		}
+		return false;
 	}
 
 }

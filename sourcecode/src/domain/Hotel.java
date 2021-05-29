@@ -12,14 +12,17 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 public class Hotel {	
-	static List<Room> allRooms = new ArrayList<Room>();
-	static ArrayList<Room> freeRooms = new ArrayList<Room>();
+
 	ArrayList<User> users = new ArrayList<User>();
 	ArrayList<HotelGuest> hotelGuests = new ArrayList<HotelGuest>();
 	
+	ArrayList<Integer> freeRooms = new ArrayList<Integer>();
+	
 	public HashMap<Integer,TimeSlot> cleaningTimeSlots = new HashMap<Integer, TimeSlot>();
+	public HashMap<Integer,Room> allRooms = new HashMap<Integer, Room>();
 
-	public boolean setAvailableDates(ArrayList<Integer> dates) {
+
+	public boolean setAvailableCleaningDates(ArrayList<Integer> dates) {
 		for(int date: dates)
 		{
 			cleaningTimeSlots.put(date,new TimeSlot());
@@ -27,98 +30,48 @@ public class Hotel {
 		return true;
 	}
 	
-	
-	public void createTestData() throws ParseException{
-		ArrayList<Date> occupiedDates = new ArrayList<Date>();
-		occupiedDates.add(new SimpleDateFormat("dd/MM/yyyy").parse("11/05/2021"));
-		Room testRoomOne = new Room(1, "Room 1", occupiedDates);
-		Room testRoomTwo = new Room(2, "Room 2", occupiedDates);
-	
-		allRooms.add(testRoomOne);
-		allRooms.add(testRoomTwo);
-	
-		HotelGuest hgtest = new HotelGuest(this);
-		hgtest.setUserName("username");
-	
-		hotelGuests.add(hgtest);
+	public boolean addRoom(int roomNumber, boolean availability) {
+		return allRooms.put(roomNumber, new Room(roomNumber, availability)) != null ;
+	}
+	public boolean deleteRoom(int roomNumber) {
+		if(allRooms.containsKey(roomNumber))
+		{
+			allRooms.remove(roomNumber);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
+	public boolean changeAvailabilityRoom(int roomNumber,boolean availabilty) {
+		if(allRooms.containsKey(roomNumber))
+		{
+			return allRooms.get(roomNumber).setAvailability(availabilty);
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	
-	
-	
-	public ArrayList<Room> getFreeRooms(Date checkoutDate) throws ParseException{
-		allRooms.clear();
+	public ArrayList<Integer> getFreeRooms(ArrayList<Integer> dates){
+		
 		freeRooms.clear();
-		createTestData();
 		
-		Date dateToCheck;
-		
-		Calendar calendar = new GregorianCalendar();
-	    calendar.setTime(new Date());
-	    
-	    while (calendar.getTime().before(checkoutDate))
-	    {
-	    	Date result = calendar.getTime();
-	    	dateToCheck = result;
-	    	for (int i = 0; i < allRooms.size(); i++) {
-				if ((!allRooms.get(i).occupiedDates.contains(dateToCheck)) && (!freeRooms.contains(allRooms.get(i)))) {
-					freeRooms.add(allRooms.get(i));
-				}
-				if ((allRooms.get(i).occupiedDates.contains(dateToCheck)) && (freeRooms.contains(allRooms.get(i)))) {
-					freeRooms.remove(allRooms.get(i));
-				}
-			}
-	    	
-	        calendar.add(Calendar.DATE, 1);
-	    }
-	    
-	    dateToCheck = checkoutDate;
-	    
-	    for (int i = 0; i < allRooms.size(); i++) {
-			if (!allRooms.get(i).occupiedDates.contains(dateToCheck) && (!freeRooms.contains(allRooms.get(i)))) {
-				freeRooms.add(allRooms.get(i));
-			}
-			if ((allRooms.get(i).occupiedDates.contains(dateToCheck)) && (freeRooms.contains(allRooms.get(i)))) {
-				freeRooms.remove(allRooms.get(i));
+		for(int i: allRooms.keySet())
+		{
+			if(allRooms.get(i).checkAvailabilty(dates)) {
+				freeRooms.add(i);
 			}
 		}
 		
 		return freeRooms;
 	}
 	
-	public void assignRoomToHotelGuest(String username, String roomName, Date checkoutDate) throws ParseException {
-		createTestData();
-		int roomNumber = 0;
-		for (int i = 0; i < allRooms.size(); i++) {
-			if (allRooms.get(i).roomName == roomName) {
-				roomNumber = allRooms.get(i).roomNumber;
-			}
-		}
-		
-		for (int i = 0; i < hotelGuests.size(); i++) {
-			if (hotelGuests.get(i).userName == username) {
-				if(roomNumber !=0) {
-					hotelGuests.get(i).assignEntryCard(roomNumber);
-					
-					ArrayList<Date> newOccupiedDates = new ArrayList<Date>();
-				    Calendar calendar = new GregorianCalendar();
-				    calendar.setTime(new Date());
-				 
-				    while (calendar.getTime().before(checkoutDate))
-				    {
-				        Date result = calendar.getTime();
-				        newOccupiedDates.add(result);
-				        calendar.add(Calendar.DATE, 1);
-				    }
-				    newOccupiedDates.add(checkoutDate);
-				    
-					hotelGuests.get(i).entryCard.assignReservation(newOccupiedDates);
-				}
-			}
-		}
-		
-		
-	}
+	
 	
 	/* DB & User Part*/
 	
