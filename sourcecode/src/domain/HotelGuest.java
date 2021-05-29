@@ -3,7 +3,7 @@ package domain;
 
 public class HotelGuest extends User{
 	
-	HotelGuest(Hotel h) {
+	public HotelGuest(Hotel h) {
 		super(h);
 		// TODO Auto-generated constructor stub
 	}
