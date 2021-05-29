@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Receptionist extends User{
 	
-	Receptionist(Hotel h) {
+	public Receptionist(Hotel h) {
 		super(h);
 		// TODO Auto-generated constructor stub
 	}
