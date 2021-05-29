@@ -202,16 +202,28 @@ public class ReservationWithReceptionist extends javax.swing.JFrame {
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void reserveBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reserveBActionPerformed
+    private void reserveBActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_reserveBActionPerformed
+    }
 
-    private void checkoutBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutBActionPerformed
+    private void checkoutBActionPerformed(java.awt.event.ActionEvent evt) {
     	Hotel hotel = new Hotel();
-    	ArrayList<String> userNames = hotel.getUsernames();
+//    	ArrayList<String> userNames = hotel.getUsernames();
+    	
+    	ArrayList<String> userNames = new ArrayList<String>();
+    	userNames.add("User 1");
+    	userNames.add("User 2");
+    	userNames.add("User 3");
+    	userNames.add("User 4");
+    	userNames.add("User 5");
+    	userNames.add("User 6");
+    	userNames.add("User 7");
+    	userNames.add("User 8");
+    	userNames.add("User 9");
+    	userNames.add("User 10");
     	
     	if (userNames.size() != 0 ) {
     		guestsList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -234,16 +246,22 @@ public class ReservationWithReceptionist extends javax.swing.JFrame {
 
     private void guestsListValueChanged(javax.swing.event.ListSelectionEvent evt) throws ParseException {
     	 Hotel hotel = new Hotel();
-         ArrayList<Room> freeRooms = hotel.getFreeRooms(new SimpleDateFormat("dd/MM/yyyy").parse(checkoutFF.getText()));
+//         ArrayList<Room> freeRooms = hotel.getFreeRooms(new SimpleDateFormat("dd/MM/yyyy").parse(checkoutFF.getText()));
          
          ArrayList<String> roomNames = new ArrayList<String>(); 
          
          roomNames.clear();
          
-         for(int i=0; i < freeRooms.size(); i++) {
-         	String newRoomName = freeRooms.get(i).roomName;
-         		roomNames.add(newRoomName);	
-         }
+         roomNames.add("Room 1");
+         roomNames.add("Room 2");
+         roomNames.add("Room 3");
+         roomNames.add("Room 4");
+         roomNames.add("Room 5");
+         roomNames.add("Room 6");
+         roomNames.add("Room 7");
+         roomNames.add("Room 8");
+         roomNames.add("Room 9");
+         roomNames.add("Room 10");
          
          
          if (roomNames.size() != 0 ) {
@@ -261,54 +279,18 @@ public class ReservationWithReceptionist extends javax.swing.JFrame {
          
     	roomsL.setVisible(true);
         roomsSP.setVisible(true);
-    }//GEN-LAST:event_guestsListValueChanged
+    }
 
-    private void checkinBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinBActionPerformed
+    private void checkinBActionPerformed(java.awt.event.ActionEvent evt) {
         checkoutL.setVisible(true);
         checkoutFF.setVisible(true);
         checkoutB.setVisible(true);
-    }//GEN-LAST:event_checkinBActionPerformed
-
-    private void roomsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_roomsListValueChanged
-        reserveB.setVisible(true);
-    }//GEN-LAST:event_roomsListValueChanged
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReservationWithReceptionist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReservationWithReceptionist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReservationWithReceptionist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReservationWithReceptionist.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ReservationWithReceptionist().setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private void roomsListValueChanged(javax.swing.event.ListSelectionEvent evt) {
+        reserveB.setVisible(true);
+    }
+
     private javax.swing.JButton checkinB;
     private javax.swing.JFormattedTextField checkinFF;
     private javax.swing.JLabel checkinL;
