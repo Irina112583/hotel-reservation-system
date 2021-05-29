@@ -186,7 +186,6 @@ public class Reservation extends javax.swing.JFrame {
         Hotel hotel = new Hotel();
         
         Date checkoutDate = new SimpleDateFormat("dd/MM/yyyy").parse(checkoutFF.getText());
-        hotel.assignRoomToHotelGuest("username", roomName, checkoutDate);
         int input = JOptionPane.showOptionDialog(null, "Please, ask receptionst for you entry card", "Reservation Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
 
         if(input == JOptionPane.OK_OPTION)
@@ -199,17 +198,20 @@ public class Reservation extends javax.swing.JFrame {
     	roomsL.setVisible(true);
         roomsSP.setVisible(true);
         
-        Hotel hotel = new Hotel();
-        ArrayList<Room> freeRooms = hotel.getFreeRooms(new SimpleDateFormat("dd/MM/yyyy").parse(checkoutFF.getText()));
-        
         ArrayList<String> roomNames = new ArrayList<String>(); 
-        
+
         roomNames.clear();
         
-        for(int i=0; i < freeRooms.size(); i++) {
-        	String newRoomName = freeRooms.get(i).roomName;
-        		roomNames.add(newRoomName);	
-        }
+        roomNames.add("Room 1");
+        roomNames.add("Room 2");
+        roomNames.add("Room 3");
+        roomNames.add("Room 4");
+        roomNames.add("Room 5");
+        roomNames.add("Room 6");
+        roomNames.add("Room 7");
+        roomNames.add("Room 8");
+        roomNames.add("Room 9");
+        roomNames.add("Room 10");
         
         
         if (roomNames.size() != 0 ) {
@@ -229,46 +231,16 @@ public class Reservation extends javax.swing.JFrame {
     private void roomsListValueChanged(javax.swing.event.ListSelectionEvent evt) {
         // TODO add your handling code here:
         if(!reserveB.isVisible()){
-            reserveB.setVisible(true);        }
+            reserveB.setVisible(true);        
+            }
     }
 
-    private void checkinBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkinBActionPerformed
+    private void checkinBActionPerformed(java.awt.event.ActionEvent evt) {
         checkoutL.setVisible(true);
         checkoutFF.setVisible(true);
         checkoutB.setVisible(true);
     }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-       
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Reservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Reservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Reservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Reservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Reservation().setVisible(true);
-            }
-        });
-    }
-    
     private javax.swing.JButton checkinB;
     private javax.swing.JFormattedTextField checkinFF;
     private javax.swing.JLabel checkinL;
