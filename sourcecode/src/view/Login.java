@@ -5,7 +5,10 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import domain.Hotel;
+import domain.HotelGuest;
+import domain.HotelManager;
 import domain.LoginSingleton;
+import domain.Receptionist;
 import domain.RegisterSingleton;
 import domain.User;
 
@@ -18,7 +21,8 @@ public class Login extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	User u = new User();
+	Hotel h = new Hotel();
+	User u = new User(h);
 
 	public Login() {
 		setBackground(Color.WHITE);
@@ -92,12 +96,14 @@ public class Login extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
-			Hotel hotel = new Hotel();
 			try {
-				if(hotel.verifyAccount(txtUsername.getText(), txtPassword.getText()) == true){
+				if(h.verifyAccount(txtUsername.getText(), txtPassword.getText()) == true){
 					LoginSingleton.disposeInstance();
-					UserInfo userFrame = new UserInfo();
-					userFrame.setVisible(true);
+					
+						UserInfo userFrame = new UserInfo(h);
+						userFrame.setVisible(true);
+					
+					
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Authentication denied! "
