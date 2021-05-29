@@ -18,6 +18,10 @@ public class UpdateTheReservation extends javax.swing.JFrame {
         updateB = new javax.swing.JButton();
         saveB = new javax.swing.JButton();
 
+        roomL.setFont(new java.awt.Font("Tahoma", 0, 18));
+        userL.setFont(new java.awt.Font("Tahoma", 0, 18));
+        dateL.setFont(new java.awt.Font("Tahoma", 0, 18));
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(720, 484));
         setMinimumSize(new java.awt.Dimension(720, 484));
@@ -42,7 +46,7 @@ public class UpdateTheReservation extends javax.swing.JFrame {
         });
 
         roomsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "room 1", "room 2", "room 3", "room 4", "room 5" };
+            String[] strings = { "room 1", "room 2", "room 3", "room 4", "room 5", "room 1", "room 2", "room 3", "room 4", "room 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -83,8 +87,8 @@ public class UpdateTheReservation extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(updateB)
                             .addComponent(saveB)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(311, 311, 311))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(211, 211, 211))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,58 +121,22 @@ public class UpdateTheReservation extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void roomsListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_roomsListValueChanged
+    private void roomsListValueChanged(javax.swing.event.ListSelectionEvent evt) {
         updateB.setEnabled(true);
                 
-    }//GEN-LAST:event_roomsListValueChanged
+    }
 
-    private void updateBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBActionPerformed
+    private void updateBActionPerformed(java.awt.event.ActionEvent evt) {
         roomL.setText(roomsList.getSelectedValue());
         saveB.setEnabled(true);
     }
     
-    private void saveBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBActionPerformed
+    private void saveBActionPerformed(java.awt.event.ActionEvent evt) {
         
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateTheReservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateTheReservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateTheReservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateTheReservation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpdateTheReservation().setVisible(true);
-            }
-        });
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel avalaibleL;
     private javax.swing.JLabel dateL;
     private javax.swing.JPanel jPanel1;
