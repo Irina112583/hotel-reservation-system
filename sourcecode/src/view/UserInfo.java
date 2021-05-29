@@ -73,13 +73,32 @@ public class UserInfo extends JFrame {
 		JButton btnStartReservation = new JButton("Start Reservation");
 		btnStartReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Reservation res = new Reservation();
-				res.setVisible(true);
+				if(hotel.getRole().equals("Receptionist")){
+					ReservationWithReceptionist res = new ReservationWithReceptionist();
+					res.setVisible(true);	
+				} else {
+					Reservation res = new Reservation();
+					res.setVisible(true);
+				}
 			}
 		});
 
+		JButton btnEditReservation = new JButton("Edit Reservation");
+		
+		btnEditReservation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(hotel.getRole().equals("Receptionist")){
+					UpdateReservations res = new UpdateReservations();
+					res.setVisible(true);	
+				}
+			}
+		});
+		
 		btnStartReservation.setBounds(861, 247, 147, 25);
 		pnlRegister.add(btnStartReservation);
+		
+		btnEditReservation.setBounds(861, 287, 147, 25);
+		pnlRegister.add(btnEditReservation);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 10, 10);
