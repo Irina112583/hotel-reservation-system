@@ -28,7 +28,7 @@ public class UpdateReservations extends javax.swing.JFrame{
         jPanel1.setMaximumSize(new java.awt.Dimension(720, 484));
         jPanel1.setMinimumSize(new java.awt.Dimension(720, 484));
 
-        reservationsL.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        reservationsL.setFont(new java.awt.Font("Tahoma", 1, 14)); 
         reservationsL.setText("RESERVATIONS");
 
         reservationsT.setModel(new javax.swing.table.DefaultTableModel(
@@ -101,18 +101,18 @@ public class UpdateReservations extends javax.swing.JFrame{
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void reservationsTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reservationsTMouseClicked
+    private void reservationsTMouseClicked(java.awt.event.MouseEvent evt) {
         makeChangesB.setEnabled(true);       
-    }//GEN-LAST:event_reservationsTMouseClicked
+    }
 
-    private void makeChangesBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeChangesBActionPerformed
+    private void makeChangesBActionPerformed(java.awt.event.ActionEvent evt) {
         getDataFromTable();
         
         UpdateTheReservation updateTheReservation = new UpdateTheReservation();
         updateTheReservation.setVisible(true);
-    }//GEN-LAST:event_makeChangesBActionPerformed
+    }
     
     private void initTableMembers(){
         int column = 3;
@@ -125,8 +125,6 @@ public class UpdateReservations extends javax.swing.JFrame{
         tableData[1][0] = "room2";
         tableData[1][1] = "user2";
         tableData[1][2] = "date2";  
-        Hotel hotel = new Hotel();
-        hotel.getUsers();
     }
     
     private void getDataFromTable(){
@@ -139,42 +137,7 @@ public class UpdateReservations extends javax.swing.JFrame{
         
         System.out.println(selectedRoom + " " + selectedUser + " " + selectedDate);      
     }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateReservations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateReservations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateReservations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateReservations.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpdateReservations().setVisible(true);
-            }
-        });
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton makeChangesB;
