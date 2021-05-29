@@ -16,10 +16,10 @@ public class Hotel {
 	
 
 	ArrayList<User> users = new ArrayList<User>();
-	ArrayList<HotelGuest> hotelGuests = new ArrayList<HotelGuest>();
 	
 	ArrayList<Integer> freeRooms = new ArrayList<Integer>();
 	
+	public HashMap<Integer,HotelGuest> hotelGuests = new HashMap<Integer,HotelGuest>();
 	public HashMap<Integer,TimeSlot> cleaningTimeSlots = new HashMap<Integer, TimeSlot>();
 	public HashMap<Integer,Room> allRooms = new HashMap<Integer, Room>();
 	public User currentUser;
@@ -28,12 +28,22 @@ public class Hotel {
 		String role = this.getRole();
 		
 		if(role.equals("Receptionist")) {
-			this.currentUser = new Receptionist(this);
+			this.currentUser = new Receptionist();
 		} else if(role.equals("Guest")) {
-			this.currentUser = new HotelGuest(this);
+			this.currentUser = new HotelGuest();
 		} else if(role.equals("Manager")) {
-			this.currentUser = new HotelManager(this);
+			this.currentUser = new HotelManager();
 		}
+	}
+	
+	public User getCurrentUser()
+	{
+		return currentUser;
+	}
+	
+	public User getChoosenUser(int entryCardNumber)
+	{
+		return hotelGuests.get(entryCardNumber);
 	}
 	
 	public boolean setAvailableCleaningDates(ArrayList<Integer> dates) {
@@ -86,6 +96,105 @@ public class Hotel {
 	}
 	
 	
+	public boolean makeCleaningReservation(int cleaningDate, int cleaningSlot)
+	{
+		
+		Cleaning cleaningReservation = new Cleaning(this);
+		if(cleaningReservation.makeReservation(cleaningDate, cleaningSlot, currentUser.getEntryCard().getRoomNumber(), currentUser.getEntryCard().getCardNumber()))
+		{
+			currentUser.getEntryCard().addReservation(cleaningReservation, cleaningDate);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public boolean updateCleaningReservation(int cleaningDate, int oldCleaningSlot, int newCleaningSlot)
+	{
+		Cleaning cleaningReservation = new Cleaning(this);
+		if(cleaningReservation.updateReservation(cleaningDate, oldCleaningSlot, newCleaningSlot, currentUser.getEntryCard().getRoomNumber(), currentUser.getEntryCard().getCardNumber()))
+		{
+			currentUser.getEntryCard().updateReservation(cleaningReservation, cleaningDate);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
+	
+	public boolean deleteCleaningReservation(int cleaningDate, int cleaningSlot)
+	{
+		Cleaning cleaningReservation = new Cleaning(this);
+		if(cleaningReservation.deleteReservation(cleaningDate, cleaningSlot, currentUser.getEntryCard().getCardNumber()))
+		{
+			currentUser.getEntryCard().deleteReservation(cleaningDate);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
+	
+	public boolean makeRoomReservation(int roomNumber, ArrayList<Integer>reservationDates) {
+		if( allRooms.get(roomNumber).makeReservation(getCurrentUser().getEntryCard().getCardNumber(), reservationDates))
+		{
+			currentUser.getEntryCard().addReservation(allRooms.get(roomNumber),currentUser.getEntryCard().getCardNumber());
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public boolean makeRoomReservation(int entryCardNumber, int roomNumber, ArrayList<Integer>reservationDates) {
+		if( allRooms.get(roomNumber).makeReservation(entryCardNumber, reservationDates))
+		{
+			getChoosenUser(entryCardNumber).getEntryCard().addReservation(allRooms.get(roomNumber),entryCardNumber);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public boolean checkReservation(int entryCardNumber, int roomNumber, ArrayList<Integer> occupiedDates) {
+		
+		return allRooms.get(roomNumber).checkReservation(entryCardNumber, occupiedDates);
+	}
+	
+	public boolean updateRoomReservation(int entryCardNumber, int roomNumber, ArrayList<Integer>reservationDates) {
+		
+		if(allRooms.get(roomNumber).updateReservation(entryCardNumber, reservationDates))
+		{
+			getChoosenUser(entryCardNumber).getEntryCard().updateReservation(allRooms.get(roomNumber), entryCardNumber);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public boolean cancelRoomReservation(int entryCardNumber, int roomNumber) {
+		
+		if(allRooms.get(roomNumber).cancelReservation(entryCardNumber))
+		{
+			getChoosenUser(entryCardNumber).getEntryCard().deleteReservation(entryCardNumber);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 	/* DB & User Part*/
 	
