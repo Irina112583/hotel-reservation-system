@@ -9,12 +9,11 @@ import domain.Hotel;
 import domain.User;
 
 public class CleaningServiceReservation extends javax.swing.JFrame{
-	 public CleaningServiceReservation() {
-	        initComponents();   
+	 public CleaningServiceReservation(Hotel hotel) {
+	        initComponents(hotel);   
 	    }
 	 
-	 public Hotel hotel = new Hotel();
-	 private void initComponents() {
+	 private void initComponents(Hotel hotel) {
 
 	        jPanel1 = new javax.swing.JPanel();
 	        headerL = new javax.swing.JLabel();
@@ -61,7 +60,7 @@ public class CleaningServiceReservation extends javax.swing.JFrame{
 	        reserveB.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                try {
-						reserveBActionPerformed(evt);
+						reserveBActionPerformed(evt, hotel);
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
@@ -133,7 +132,7 @@ public class CleaningServiceReservation extends javax.swing.JFrame{
 	        pack();
 	    }
 
-	    private void reserveBActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {//GEN-FIRST:event_reserveBActionPerformed
+	    private void reserveBActionPerformed(java.awt.event.ActionEvent evt,  Hotel hotel) throws ParseException {//GEN-FIRST:event_reserveBActionPerformed
 	        // TODO add your handling code here:
 	    	
 	    	Date chosenDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateTF.getText());
@@ -178,7 +177,8 @@ public class CleaningServiceReservation extends javax.swing.JFrame{
 	    	System.out.println(chosenDate);
 	    	System.out.println(choosenTimeSlote);
 	    	
-	    	
+
+//	    	hotel.getCurretUser().makeCleaningReservation(hotel.getCurretUser(), choosenTimeSlote, choosenTimeSlote, choosenTimeSlote);
 	    	int input = JOptionPane.showOptionDialog(null, "You have successfully ordered cleaning service", "Reservation Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
 
 	        if(input == JOptionPane.OK_OPTION)
