@@ -25,23 +25,20 @@ public class Hotel {
 	public User currentUser;
 
 	public Hotel() {
+//		String role = this.getRole();
+//		
+//		if(role.equals("Receptionist")) {
+//			this.currentUser = new Receptionist();
+//		} else if(role.equals("Guest")) {
+//			this.currentUser = new HotelGuest();
+//		} else if(role.equals("Manager")) {
+//			this.currentUser = new HotelManager();
+//		}
 	}
 	
 	public User getCurrentUser()
 	{
 		return currentUser;
-	}
-	
-	public void init() {
-		String role = this.getRole();
-		
-		if(role.equals("Receptionist")) {
-			this.currentUser = new Receptionist();
-		} else if(role.equals("Guest")) {
-			this.currentUser = new HotelGuest();
-		} else if(role.equals("Manager")) {
-			this.currentUser = new HotelManager();
-		}
 	}
 	
 	public User getChoosenUser(int entryCardNumber)
@@ -204,8 +201,8 @@ public class Hotel {
 	DB db = new DBAdapter();
 	
 	public void insertUser(int IDNumber, String fullName, String username, String password, String emailAddress,
-			String role){
-		db.insertUser(IDNumber, fullName, username, password, emailAddress, role);			
+			String role, int status){
+		db.insertUser(IDNumber, fullName, username, password, emailAddress, role, status);			
 	}
 	
 	public void updateUser(int IDNumber, String fullName, String username, String password, String emailAddress,
@@ -217,9 +214,19 @@ public class Hotel {
 	public void deleteUser(int IDNumber){
 		db.deleteUser(IDNumber);
 	}
+	public void deleteUser(String fullName){
+		db.deleteUser(fullName);
+	}
 	
 	public boolean verifyAccount(String username, String password) throws ClassNotFoundException{
 		return db.verifyAccount(username, password);
+	}
+	
+	public ArrayList<String> retrieveUsersWithRole(String role) throws ClassNotFoundException{
+		return db.retrieveUsersWithRole(role);
+	}
+	public void approveReceptionist(String fullName){
+		db.approveReceptionist(fullName);
 	}
 	
     public int getIDNumber(){
@@ -236,6 +243,9 @@ public class Hotel {
     }
     public String getRole(){
     	return db.getRole();
+    }
+    public int getUserStatus(){
+    	return db.getUserStatus();
     }
 	
 }

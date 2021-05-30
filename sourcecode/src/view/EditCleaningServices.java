@@ -6,16 +6,14 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-import domain.Hotel;
-
 public class EditCleaningServices extends javax.swing.JFrame {
 	
-	 public EditCleaningServices(Hotel hotel, int oldTimeSlot) {
-	        initComponents(hotel, oldTimeSlot);
+	 public EditCleaningServices() {
+	        initComponents();
 
 	    }
 	 
-	    private void initComponents(Hotel hotel, int oldTimeSlot) {
+	    private void initComponents() {
 
 	        jPanel1 = new javax.swing.JPanel();
 	        headerL = new javax.swing.JLabel();
@@ -62,7 +60,7 @@ public class EditCleaningServices extends javax.swing.JFrame {
 	        updateB.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                try {
-						updateBActionPerformed(evt, hotel, oldTimeSlot);
+						updateBActionPerformed(evt);
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -72,7 +70,7 @@ public class EditCleaningServices extends javax.swing.JFrame {
 
 	        dateTF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 	        dateTF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-	        dateTF.setText("YYYY/MM/DD");
+	        dateTF.setText("DD/MM/YYYY");
 
 	        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 	        jPanel1.setLayout(jPanel1Layout);
@@ -135,10 +133,8 @@ public class EditCleaningServices extends javax.swing.JFrame {
 	        setLocationRelativeTo(null);
 	    }
 
-	    private void updateBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel, int oldTimeSlot) throws ParseException {
-	    	String dateFromTextField= dateTF.getText();
-	    	String cleanDate = dateFromTextField.replaceAll("/", "");
-	    	int chosenDate = Integer.parseInt(cleanDate);
+	    private void updateBActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {
+	    	Date chosenDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateTF.getText());
 	    	int choosenTimeSlote = 0;
 	    	
 	    	switch(timeSlotList.getSelectedValue()) {
@@ -181,7 +177,6 @@ public class EditCleaningServices extends javax.swing.JFrame {
 	    	System.out.println(chosenDate);
 	    	System.out.println(choosenTimeSlote);
 	    	
-	    	hotel.updateCleaningReservation(chosenDate, oldTimeSlot, choosenTimeSlote);
 	    	
 	    	int input = JOptionPane.showOptionDialog(null, "You have successfully updated cleaning service order", "Reservation Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
 
@@ -193,7 +188,7 @@ public class EditCleaningServices extends javax.swing.JFrame {
 
 	    private void timeSlotListValueChanged(javax.swing.event.ListSelectionEvent evt) {
 	        
-	        if(!dateTF.getText().equals("YYYY/MM/DD")){
+	        if(!dateTF.getText().equals("DD/MM/YYYY")){
 	        updateB.setEnabled(true);        
 	        }                          
 	    }

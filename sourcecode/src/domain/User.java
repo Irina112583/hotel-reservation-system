@@ -8,6 +8,7 @@ public class User {
 	String password;
 	String emailAddress;
 	String role;
+	int status;
 	
 	
 	public EntryCard getEntryCard()

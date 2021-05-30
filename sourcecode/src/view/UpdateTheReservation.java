@@ -1,14 +1,12 @@
 package view;
 
-import domain.Hotel;
-
 public class UpdateTheReservation extends javax.swing.JFrame {
 	
-	public UpdateTheReservation(Hotel hotel) {
-        initComponents(hotel);
+	public UpdateTheReservation() {
+        initComponents();
     }
 
-	private void initComponents(Hotel hotel) {
+	private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         roomL = new javax.swing.JLabel();
@@ -43,7 +41,7 @@ public class UpdateTheReservation extends javax.swing.JFrame {
         saveB.setEnabled(false);
         saveB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	saveBActionPerformed(evt, hotel);
+            	saveBActionPerformed(evt);
             }
         });
 
@@ -63,7 +61,7 @@ public class UpdateTheReservation extends javax.swing.JFrame {
         updateB.setEnabled(false);
         updateB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateBActionPerformed(evt, hotel);
+                updateBActionPerformed(evt);
             }
         });
 
@@ -130,12 +128,12 @@ public class UpdateTheReservation extends javax.swing.JFrame {
                 
     }
 
-    private void updateBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) {
+    private void updateBActionPerformed(java.awt.event.ActionEvent evt) {
         roomL.setText(roomsList.getSelectedValue());
         saveB.setEnabled(true);
     }
     
-    private void saveBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) {
+    private void saveBActionPerformed(java.awt.event.ActionEvent evt) {
         
     }
 

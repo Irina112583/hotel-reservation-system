@@ -69,7 +69,7 @@ public class CleaningServiceReservation extends javax.swing.JFrame{
 
 	        dateTF.setFont(new java.awt.Font("Tahoma", 0, 14));
 	        dateTF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-	        dateTF.setText("YYYY/MM/DD");
+	        dateTF.setText("DD/MM/YYYY");
 
 	        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 	        jPanel1.setLayout(jPanel1Layout);
@@ -135,10 +135,7 @@ public class CleaningServiceReservation extends javax.swing.JFrame{
 	    private void reserveBActionPerformed(java.awt.event.ActionEvent evt,  Hotel hotel) throws ParseException {//GEN-FIRST:event_reserveBActionPerformed
 	        // TODO add your handling code here:
 	    	
-	    	String dateFromTextField= dateTF.getText();
-	    	String cleanDate = dateFromTextField.replaceAll("/", "");
-	    	int chosenDate = Integer.parseInt(cleanDate);
-	    	
+	    	Date chosenDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateTF.getText());
 	    	int choosenTimeSlote = 0;
 	    	
 	    	switch(timeSlotList.getSelectedValue()) {
@@ -181,27 +178,18 @@ public class CleaningServiceReservation extends javax.swing.JFrame{
 	    	System.out.println(choosenTimeSlote);
 	    	
 
-	    	boolean result = hotel.makeCleaningReservation(chosenDate, choosenTimeSlote);
-	    	
-	    	int input;
-	    	if(result == true ) {
-	    		input = JOptionPane.showOptionDialog(null, "You have successfully ordered cleaning service", "Reservation Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
-	    		if(input == JOptionPane.OK_OPTION)
-		        {
-		        	this.setVisible(false);
-		        }
-	    	} else {
-	    		input = JOptionPane.showOptionDialog(null, "Your order was not complete! Please, repeat later", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
-	    		if(input == JOptionPane.OK_OPTION)
-		        {
-		        	this.setVisible(false);
-		        }
-	    	}  
+//	    	hotel.getCurretUser().makeCleaningReservation(hotel.getCurretUser(), choosenTimeSlote, choosenTimeSlote, choosenTimeSlote);
+	    	int input = JOptionPane.showOptionDialog(null, "You have successfully ordered cleaning service", "Reservation Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
+
+	        if(input == JOptionPane.OK_OPTION)
+	        {
+	        	this.setVisible(false);
+	        }
 	    }
 
 	    private void timeSlotListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_timeSlotListValueChanged
 	        
-	        if(!dateTF.getText().equals("YYYY/MM/DD")){
+	        if(!dateTF.getText().equals("DD/MM/YYYY")){
 	        reserveB.setEnabled(true);        
 	        }                          
 	    }
