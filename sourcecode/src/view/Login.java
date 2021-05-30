@@ -22,7 +22,6 @@ public class Login extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	Hotel h = new Hotel();
-	User u = new User(h);
 
 	public Login() {
 		setBackground(Color.WHITE);
@@ -99,11 +98,9 @@ public class Login extends JFrame {
 			try {
 				if(h.verifyAccount(txtUsername.getText(), txtPassword.getText()) == true){
 					LoginSingleton.disposeInstance();
-					
-						UserInfo userFrame = new UserInfo(h);
-						userFrame.setVisible(true);
-					
-					
+					h.init();
+					UserInfo userFrame = new UserInfo(h);
+					userFrame.setVisible(true);
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "Authentication denied! "
