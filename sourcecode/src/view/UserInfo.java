@@ -72,10 +72,10 @@ public class UserInfo extends JFrame {
 		btnStartReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(hotel.getRole().equals("Receptionist")){
-					ReservationWithReceptionist res = new ReservationWithReceptionist();
+					ReservationWithReceptionist res = new ReservationWithReceptionist(hotel);
 					res.setVisible(true);	
 				} else {
-					Reservation res = new Reservation();
+					Reservation res = new Reservation(hotel);
 					res.setVisible(true);
 				}
 			}
@@ -86,7 +86,7 @@ public class UserInfo extends JFrame {
 		btnEditReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(hotel.getRole().equals("Receptionist")){
-					UpdateReservations res = new UpdateReservations();
+					UpdateReservations res = new UpdateReservations(hotel);
 					res.setVisible(true);	
 				}
 			}
@@ -105,7 +105,7 @@ public class UserInfo extends JFrame {
 		
 		btnOrderedCleaningReservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UpdateOrderedCleaningServices handleCS = new UpdateOrderedCleaningServices();
+				UpdateOrderedCleaningServices handleCS = new UpdateOrderedCleaningServices(hotel);
 				handleCS.setVisible(true);	
 			}
 		});
@@ -114,7 +114,7 @@ public class UserInfo extends JFrame {
 		
 		btnHandleCashPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CashPayment handlePayment = new CashPayment();
+				CashPayment handlePayment = new CashPayment(hotel);
 				handlePayment.setVisible(true);	
 			}
 		});
@@ -123,7 +123,7 @@ public class UserInfo extends JFrame {
 		
 		btnMonitorReservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MonitorReservations monitorReservations = new MonitorReservations();
+				MonitorReservations monitorReservations = new MonitorReservations(hotel);
 				monitorReservations.setVisible(true);	
 			}
 		});
@@ -283,7 +283,7 @@ public class UserInfo extends JFrame {
 				if(hotel.getRole().equals("Guest")) {
 					btnStartReservation.setVisible(true);
 					btnOrderedCleaningReservations.setVisible(true);
-					btnOrderCleaningReservation.setVisible(true);
+					btnOrderCleaningReservation.setVisible(true);	
 				}
 			}
 		});
