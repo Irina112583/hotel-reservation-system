@@ -6,14 +6,14 @@ public class UpdateReservations extends javax.swing.JFrame{
 	
 	Object[][] tableData;
    
-    public UpdateReservations() {
+    public UpdateReservations(Hotel hotel) {
         
-        initTableMembers();        
-        initComponents();   
+        initTableMembers(hotel);        
+        initComponents(hotel);   
     }
 
 	
-	private void initComponents() {
+	private void initComponents(Hotel hotel) {
 
         jPanel1 = new javax.swing.JPanel();
         reservationsL = new javax.swing.JLabel();
@@ -56,7 +56,7 @@ public class UpdateReservations extends javax.swing.JFrame{
         makeChangesB.setEnabled(false);
         makeChangesB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                makeChangesBActionPerformed(evt);
+                makeChangesBActionPerformed(evt, hotel);
             }
         });
 
@@ -107,14 +107,14 @@ public class UpdateReservations extends javax.swing.JFrame{
         makeChangesB.setEnabled(true);       
     }
 
-    private void makeChangesBActionPerformed(java.awt.event.ActionEvent evt) {
+    private void makeChangesBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) {
         getDataFromTable();
         
-        UpdateTheReservation updateTheReservation = new UpdateTheReservation();
+        UpdateTheReservation updateTheReservation = new UpdateTheReservation(hotel);
         updateTheReservation.setVisible(true);
     }
     
-    private void initTableMembers(){
+    private void initTableMembers(Hotel hotel){
         int column = 3;
         int row = 2;
         
