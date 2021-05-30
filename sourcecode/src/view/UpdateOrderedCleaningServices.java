@@ -1,15 +1,17 @@
 package view;
 
+import domain.Hotel;
+
 public class UpdateOrderedCleaningServices extends javax.swing.JFrame {
 
 	Object[][] tableData;
 
-    public UpdateOrderedCleaningServices() {
-        initTableMembers();
-        initComponents();
+    public UpdateOrderedCleaningServices(Hotel hotel) {
+        initTableMembers(hotel);
+        initComponents(hotel);
     }
     
-    private void initComponents() {
+    private void initComponents(Hotel hotel) {
 
         jPanel1 = new javax.swing.JPanel();
         headerL = new javax.swing.JLabel();
@@ -54,7 +56,7 @@ public class UpdateOrderedCleaningServices extends javax.swing.JFrame {
         editB.setEnabled(false);
         editB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editBActionPerformed(evt);
+                editBActionPerformed(evt, hotel);
             }
         });
 
@@ -63,7 +65,7 @@ public class UpdateOrderedCleaningServices extends javax.swing.JFrame {
         deleteB.setEnabled(false);
         deleteB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBActionPerformed(evt);
+                deleteBActionPerformed(evt, hotel);
             }
         });
 
@@ -120,21 +122,104 @@ public class UpdateOrderedCleaningServices extends javax.swing.JFrame {
         deleteB.setEnabled(true);
     }
 
-    private void deleteBActionPerformed(java.awt.event.ActionEvent evt) {
-       
+    private void deleteBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) {
+    	int selectedRow = cleaningServicesT.getSelectedRow();
+        String selectedDate, selectedTimeSlot;
+        
+        selectedDate = ""+tableData[selectedRow][0];
+        
+    	String cleanDate = selectedDate.replaceAll("/", "");
+    	int dateToDelete = Integer.parseInt(cleanDate);
     	
-    	
-    	
-    	
-    	
+        selectedTimeSlot = ""+tableData[selectedRow][1];
+        
+        int timeSlotToDelete;
+        
+        switch(selectedTimeSlot) {
+    	  case "8:00 - 9:00":
+    		  timeSlotToDelete = 1;
+    	    break;
+    	  case "9:00 - 10:00":
+    		  timeSlotToDelete = 2;
+  	    	  break;
+    	  case "10:00 - 11:00":
+    		  timeSlotToDelete = 3;
+  	    	  break;
+    	  case "11:00 - 12:00":
+    		  timeSlotToDelete = 4;
+  	    	  break;
+    	  case "12:00 - 13:00":
+    		  timeSlotToDelete = 5;
+  	    	  break;
+    	  case "13:00 - 14:00":
+    		  timeSlotToDelete = 6;
+  	    	  break;
+    	  case "14:00 - 15:00":
+    		  timeSlotToDelete = 7;
+  	    	  break;
+    	  case "15:00 - 16:00":
+    		  timeSlotToDelete = 8;
+  	    	  break;
+    	  case "16:00 - 17:00":
+    		  timeSlotToDelete = 9;
+  	    	  break;
+    	  case "17:00 - 18:00":
+    		  timeSlotToDelete = 10;
+  	    	  break;
+    	  default:
+    		  timeSlotToDelete = 0;
+  	    	  break;
+    	}
+        
+        hotel.deleteCleaningReservation(dateToDelete, timeSlotToDelete);
     }
 
-    private void editBActionPerformed(java.awt.event.ActionEvent evt) {
-    	EditCleaningServices edit = new EditCleaningServices();
+    private void editBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) {
+    	int selectedRow = cleaningServicesT.getSelectedRow();
+    	String selectedTimeSlot = ""+tableData[selectedRow][1];
+    	int oldTimeSlot;
+    	
+    switch(selectedTimeSlot) {
+  	  case "8:00 - 9:00":
+  		oldTimeSlot = 1;
+  	    break;
+  	  case "9:00 - 10:00":
+  		oldTimeSlot = 2;
+	    	  break;
+  	  case "10:00 - 11:00":
+  		oldTimeSlot = 3;
+	    	  break;
+  	  case "11:00 - 12:00":
+  		oldTimeSlot = 4;
+	    	  break;
+  	  case "12:00 - 13:00":
+  		oldTimeSlot = 5;
+	    	  break;
+  	  case "13:00 - 14:00":
+  		oldTimeSlot = 6;
+	    	  break;
+  	  case "14:00 - 15:00":
+  		oldTimeSlot = 7;
+	    	  break;
+  	  case "15:00 - 16:00":
+  		oldTimeSlot = 8;
+	    	  break;
+  	  case "16:00 - 17:00":
+  		oldTimeSlot = 9;
+	    	  break;
+  	  case "17:00 - 18:00":
+  		oldTimeSlot = 10;
+	    	  break;
+  	  default:
+  		oldTimeSlot = 0;
+	    	  break;
+  	}
+    	
+    	EditCleaningServices edit = new EditCleaningServices(hotel, oldTimeSlot);
     	edit.setVisible(true);
     }
-
-        private void initTableMembers(){
+    
+    private void initTableMembers(Hotel hotel){
         int column = 2;
         int row = 1;
         
@@ -142,16 +227,6 @@ public class UpdateOrderedCleaningServices extends javax.swing.JFrame {
         tableData[0][0] = "date1";
         tableData[0][1] = "timeslot1";
 
-    }
-    
-    private void getDataFromTable(){
-        int selectedRow = cleaningServicesT.getSelectedRow();
-        String selectedDate, selectedTimeSlot;
-        
-        selectedDate = ""+tableData[selectedRow][0];
-        selectedTimeSlot = ""+tableData[selectedRow][1];
-        
-        System.out.println(selectedDate + " " + selectedTimeSlot);      
     }
 
     private javax.swing.JTable cleaningServicesT;
