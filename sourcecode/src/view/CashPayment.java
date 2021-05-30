@@ -2,13 +2,16 @@ package view;
 
 import javax.swing.JOptionPane;
 
+import domain.EntryCard;
+import domain.Hotel;
+
 public class CashPayment extends javax.swing.JFrame {
 
-	public CashPayment() {
-        initComponents();
+	public CashPayment(Hotel hotel) {
+        initComponents(hotel);
     }
 
-    private void initComponents() {
+    private void initComponents(Hotel hotel) {
 
         jPanel1 = new javax.swing.JPanel();
         headerL = new javax.swing.JLabel();
@@ -30,7 +33,7 @@ public class CashPayment extends javax.swing.JFrame {
 
         entryCardL.setFont(new java.awt.Font("Tahoma", 0, 18));
         entryCardL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        entryCardL.setText("Please, enter the number of entry card:");
+        entryCardL.setText("Please, enter the Username:");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -39,7 +42,7 @@ public class CashPayment extends javax.swing.JFrame {
         EnterButton.setText("Enter");
         EnterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	EnterButtonActionPerformed(evt);
+            	EnterButtonActionPerformed(evt, hotel);
             }
         });
         
@@ -138,10 +141,22 @@ public class CashPayment extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void EnterButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void EnterButtonActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) {
+    	EntryCard entryCard = null;
+    	
+    	for(int i=0; i<hotel.hotelGuests.size(); i++) {
+    		if(hotel.hotelGuests.get(i).getUserName() == jTextField1.getText()) {
+    			entryCard = hotel.hotelGuests.get(i).getEntryCard();
+    		}
+    	}
+    	
+    	for(int i=0; i < hotel.allRooms.size();i++) {
+    		if(hotel.allRooms.get(i).roomNumber == entryCard.getRoomNumber()) {
+    			numberL.setText(""+(hotel.allRooms.get(i).getReservationCharge(entryCard.getRoomNumber())));
+    		}
+    	}
     	
         debtL.setEnabled(true);
-        numberL.setText("999");
         numberL.setEnabled(true);
         currencyL.setEnabled(true);
         payB.setEnabled(true);
