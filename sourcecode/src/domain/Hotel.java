@@ -25,6 +25,14 @@ public class Hotel {
 	public User currentUser;
 
 	public Hotel() {
+	}
+	
+	public User getCurrentUser()
+	{
+		return currentUser;
+	}
+	
+	public void init() {
 		String role = this.getRole();
 		
 		if(role.equals("Receptionist")) {
@@ -34,11 +42,6 @@ public class Hotel {
 		} else if(role.equals("Manager")) {
 			this.currentUser = new HotelManager();
 		}
-	}
-	
-	public User getCurrentUser()
-	{
-		return currentUser;
 	}
 	
 	public User getChoosenUser(int entryCardNumber)
