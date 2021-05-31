@@ -1,16 +1,12 @@
 package view;
 
-import javax.swing.JOptionPane;
-
-import domain.Hotel;
-
 public class UpdateTheReservation extends javax.swing.JFrame {
 	
-	public UpdateTheReservation(Hotel hotel, String sR, String sU, String sD) {
-        initComponents(hotel, sR, sU, sD);
+	public UpdateTheReservation() {
+        initComponents();
     }
 
-	private void initComponents(Hotel hotel, String selectedRoom, String selectedUser, String selectedDate) {
+	private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         roomL = new javax.swing.JLabel();
@@ -31,11 +27,11 @@ public class UpdateTheReservation extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(720, 484));
         setPreferredSize(new java.awt.Dimension(720, 484));
 
-        roomL.setText("Room number " + selectedRoom);
+        roomL.setText("roomHere");
 
-        userL.setText(selectedUser);
+        userL.setText("userHere");
 
-        dateL.setText(selectedDate);
+        dateL.setText("dateHere");
 
         avalaibleL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         avalaibleL.setText("Available Rooms:");
@@ -45,7 +41,7 @@ public class UpdateTheReservation extends javax.swing.JFrame {
         saveB.setEnabled(false);
         saveB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	saveBActionPerformed(evt, hotel);
+            	saveBActionPerformed(evt);
             }
         });
 
@@ -65,7 +61,7 @@ public class UpdateTheReservation extends javax.swing.JFrame {
         updateB.setEnabled(false);
         updateB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateBActionPerformed(evt, hotel);
+                updateBActionPerformed(evt);
             }
         });
 
@@ -132,17 +128,13 @@ public class UpdateTheReservation extends javax.swing.JFrame {
                 
     }
 
-    private void updateBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) {
+    private void updateBActionPerformed(java.awt.event.ActionEvent evt) {
         roomL.setText(roomsList.getSelectedValue());
         saveB.setEnabled(true);
     }
     
-    private void saveBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) {
-    	int input = JOptionPane.showOptionDialog(null, "You have successfully updated the room reservation", "Reservation Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
-    	if(input == JOptionPane.OK_OPTION)
-        {
-        	this.setVisible(false);
-        }
+    private void saveBActionPerformed(java.awt.event.ActionEvent evt) {
+        
     }
 
     private javax.swing.JLabel avalaibleL;

@@ -1,18 +1,22 @@
 package domain;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 public class DBSQLiteAdapter{
 
 	String sql = null;
+
+	
 	private static int IDNumber;
 	private static String fullName;
 	private static String username;
 	private static String password;
 	private static String emailAddress;
 	private static String role;
+	private static int userStatus;
 	
 	public Connection connect() throws ClassNotFoundException{
 		
@@ -30,8 +34,8 @@ public class DBSQLiteAdapter{
 		return conn;
 	}
 	
-    public void insertUser(int IDNumber, String fullName, String username, String password, String emailAddress, String role){
-    	sql = "INSERT INTO User VALUES(?,?,?,?,?,?);";
+    public void insertUser(int IDNumber, String fullName, String username, String password, String emailAddress, String role, int status){
+    	sql = "INSERT INTO User VALUES(?,?,?,?,?,?,?);";
     	
     	try (Connection conn = this.connect();
     		PreparedStatement pst = conn.prepareStatement(sql)){
@@ -41,24 +45,24 @@ public class DBSQLiteAdapter{
     			pst.setString(4, password);
     			pst.setString(5, emailAddress);
     			pst.setString(6, role);
+    			pst.setInt(7, status);
         		
     			pst.executeUpdate();
         		pst.close();
         		//conn.commit();
         		conn.close();
-        		JOptionPane.showMessageDialog(null, "You have successfully enrolled to HRS!");
+        		
+        		if (status == 0)
+					JOptionPane.showMessageDialog(null, "Your request was sent to Manager for approval.");
+        		else
+        			JOptionPane.showMessageDialog(null, "You have successfully enrolled to HRS!");
         		
     		}catch (SQLException | ClassNotFoundException e) {
-    	        System.err.println(e.getClass().getName() + ": " + e.getMessage());
-    	        System.exit(0);
+    			JOptionPane.showMessageDialog(null, "Some of information you entered is not suitable for registration. Check the fields and try again.", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
     }
     
     public void updateUser(int IDNumber, String fullName, String username, String password, String emailAddress, String role){
-//    	String sql = "UPDATE User SET Fullname = ? , "
-//                + "Password = ? "
-//                + "EmailAddress = ? "
-//                + "WHERE IDNumber = ?";
     	
     	String sql = "UPDATE User SET Fullname = '"+fullName+"' ,Password = '"+password+"' ,EmailAddress = '"+emailAddress+"' WHERE IDNumber = "+IDNumber+"";
     	
@@ -70,7 +74,19 @@ public class DBSQLiteAdapter{
     		setEmailAddress(emailAddress);
     		setPassword(password);
         } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+        	JOptionPane.showMessageDialog(null, "An error occured! Please contact to system administrator.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void approveReceptionist(String fullName){
+    String sql = "UPDATE User SET Status = 1 WHERE Fullname = '"+ fullName + "'";
+    	
+        try (Connection conn = this.connect();
+                PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.execute();
+    		JOptionPane.showMessageDialog(null, "User approved!");
+        } catch (SQLException | ClassNotFoundException e) {
+        	JOptionPane.showMessageDialog(null, "An error occured! Please contact to system administrator.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -88,6 +104,61 @@ public class DBSQLiteAdapter{
         }
     }
     
+    public void deleteUser(String fullName){
+    	String sql = "DELETE FROM User WHERE Fullname = ?";
+
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, fullName);
+            pstmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Receptionist request declined and removed from the system!");
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public ArrayList<String> retrieveUsersWithRole(String role) throws ClassNotFoundException{
+    	
+    	String sql = "SELECT * FROM User where Status = 0 AND Role = '" + role + "'";
+    	
+    	 ArrayList<String> users = new ArrayList<String>();
+    	 
+    	 
+    	 try (Connection conn = this.connect();
+                 Statement stmt  = conn.createStatement();
+                 ResultSet rs    = stmt.executeQuery(sql)){
+    		 
+    		 while (rs.next()){
+    			 
+//             	setIDNumber(rs.getInt(1));
+//             	setFullName(rs.getString(2));
+//             	setUsername(rs.getString(3));
+//             	setPassword(rs.getString(4));
+//             	setEmailAddress(rs.getString(5));
+//             	setRole(rs.getString(6));
+//             	setUserStatus(rs.getInt(7));
+    			 
+//    			 user.IDNumber = rs.getInt(1);
+//    			 user.fullName = rs.getString(2);
+//    			 user.userName = rs.getString(3);
+//    			 user.password = rs.getString(4);
+//    			 user.emailAddress = rs.getString(5);
+//    			 user.role = rs.getString(6);
+//    			 user.status = rs.getInt(7);
+    			 
+    			 users.add(rs.getString(2));
+    		 }
+    		 
+    		 
+    	 } catch (SQLException e) {
+         	
+         	JOptionPane.showMessageDialog(null, "An error occured! Please contact to system administrator." + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+         }
+    	 
+    	 return users;
+}
+    
     public boolean verifyAccount(String username, String password) throws ClassNotFoundException{
 
     	String sql = "SELECT * FROM User where Username = '" + username + "'";
@@ -96,20 +167,35 @@ public class DBSQLiteAdapter{
     	 try (Connection conn = this.connect();
                  Statement stmt  = conn.createStatement();
                  ResultSet rs    = stmt.executeQuery(sql)){
-                if(rs.getString("Password").equals(password)){
+                if(rs.isBeforeFirst() == true && rs.getString("Password").equals(password)){
+
                 	loginCheck = true;
+                	//Set current user information
                 	setIDNumber(rs.getInt(1));
                 	setFullName(rs.getString(2));
                 	setUsername(rs.getString(3));
                 	setPassword(rs.getString(4));
                 	setEmailAddress(rs.getString(5));
                 	setRole(rs.getString(6));
+                	setUserStatus(rs.getInt(7));
                 	
                 	JOptionPane.showMessageDialog(null, "Authentication is OK!");
+                	
+					if(rs.getInt(7) == 0){
+						JOptionPane.showMessageDialog(null, "Your approval is in progress. Please contact to Hotel manager.", "Warning", JOptionPane.WARNING_MESSAGE);
+						return false;
+					}
+
                 }
+				else{
+					JOptionPane.showMessageDialog(null, "Authentication denied! "
+							+ "The username or password has been refused by System."
+							+ " Please try again.");
+				}
                 
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+            	
+            	JOptionPane.showMessageDialog(null, "An error occured! Please contact to system administrator." + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
             }
     	return loginCheck;
     }
@@ -129,6 +215,9 @@ public class DBSQLiteAdapter{
     public String getRole(){
     	return role;
     }
+    public int getUserStatus(){
+    	return userStatus;
+    }
     public void setIDNumber(int IDNumber){
     	DBSQLiteAdapter.IDNumber = IDNumber;
     }
@@ -146,5 +235,8 @@ public class DBSQLiteAdapter{
     }
     public void setRole(String role){
     	DBSQLiteAdapter.role = role;
+    }
+    public void setUserStatus(int userStatus){
+    	DBSQLiteAdapter.userStatus = userStatus;
     }
 }

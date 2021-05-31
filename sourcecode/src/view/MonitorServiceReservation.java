@@ -2,11 +2,11 @@ package view;
 
 public class MonitorServiceReservation extends javax.swing.JFrame {
 
-	public MonitorServiceReservation(String selectedService, String selectedOccupiedTS, String selectedStatus) {
-        initComponents(selectedService, selectedOccupiedTS, selectedStatus);
+	public MonitorServiceReservation() {
+        initComponents();
     }
 
-    private void initComponents(String selectedService, String selectedOccupiedTS, String selectedStatus) {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         serviceNameL = new javax.swing.JLabel();
@@ -24,7 +24,7 @@ public class MonitorServiceReservation extends javax.swing.JFrame {
 
         serviceNameL.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         serviceNameL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        serviceNameL.setText(selectedService);
+        serviceNameL.setText("Service Name");
 
         occTimeSlotL.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         occTimeSlotL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -32,7 +32,7 @@ public class MonitorServiceReservation extends javax.swing.JFrame {
 
         timeL.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         timeL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        timeL.setText(selectedOccupiedTS);
+        timeL.setText("01/01/2001");
 
         currentAvL.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         currentAvL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -40,13 +40,15 @@ public class MonitorServiceReservation extends javax.swing.JFrame {
 
         availabilityL.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         availabilityL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        availabilityL.setText(selectedStatus);
+        availabilityL.setText("testAvailibility");
 
         currentGuestL.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         currentGuestL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        currentGuestL.setText("Current Guest:");
 
         guestL.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         guestL.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        guestL.setText("guest1");
 
         okB.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         okB.setText("OK");

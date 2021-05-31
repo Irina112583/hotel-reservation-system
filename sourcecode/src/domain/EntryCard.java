@@ -23,19 +23,9 @@ public class EntryCard {
 		return roomNumber;
 	}
 	
-	public void setRoomNumber(int roomNumber)
-	{
-		this.roomNumber = roomNumber;
-	}
-	
 	public int getCardNumber()
 	{
 		return cardNumber;
-	}
-	
-	public void setCardNumber(int cardNumber)
-	{
-		this.cardNumber = cardNumber;
 	}
 	
 	public void addReservation(Reservation reservation, int reservationId) {

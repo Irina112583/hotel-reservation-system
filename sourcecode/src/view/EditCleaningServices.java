@@ -6,16 +6,14 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-import domain.Hotel;
-
 public class EditCleaningServices extends javax.swing.JFrame {
 	
-	 public EditCleaningServices(Hotel hotel, int oldTimeSlot, String selectedDate) {
-	        initComponents(hotel, oldTimeSlot, selectedDate);
+	 public EditCleaningServices() {
+	        initComponents();
 
 	    }
 	 
-	    private void initComponents(Hotel hotel, int oldTimeSlot, String selectedDate) {
+	    private void initComponents() {
 
 	        jPanel1 = new javax.swing.JPanel();
 	        headerL = new javax.swing.JLabel();
@@ -24,7 +22,7 @@ public class EditCleaningServices extends javax.swing.JFrame {
 	        timeSlotList = new javax.swing.JList<>();
 	        timeSlotL = new javax.swing.JLabel();
 	        updateB = new javax.swing.JButton();
-	        dateTF = new javax.swing.JLabel();
+	        dateTF = new javax.swing.JTextField();
 
 	        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 	        setMaximumSize(new java.awt.Dimension(720, 480));
@@ -36,7 +34,7 @@ public class EditCleaningServices extends javax.swing.JFrame {
 	        headerL.setText("Reserve Additional Cleaning Service");
 
 	        dateL.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-	        dateL.setText("Date of cleaning:");
+	        dateL.setText("Choose a Date:");
 
 	        timeSlotList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 	        timeSlotList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -62,7 +60,7 @@ public class EditCleaningServices extends javax.swing.JFrame {
 	        updateB.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                try {
-						updateBActionPerformed(evt, hotel, oldTimeSlot);
+						updateBActionPerformed(evt);
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -72,7 +70,7 @@ public class EditCleaningServices extends javax.swing.JFrame {
 
 	        dateTF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 	        dateTF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-	        dateTF.setText(selectedDate);
+	        dateTF.setText("DD/MM/YYYY");
 
 	        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 	        jPanel1.setLayout(jPanel1Layout);
@@ -135,10 +133,8 @@ public class EditCleaningServices extends javax.swing.JFrame {
 	        setLocationRelativeTo(null);
 	    }
 
-	    private void updateBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel, int oldTimeSlot) throws ParseException {
-	    	String dateFromTextField= dateTF.getText();
-	    	String cleanDate = dateFromTextField.replaceAll("/", "");
-	    	int chosenDate = Integer.parseInt(cleanDate);
+	    private void updateBActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {
+	    	Date chosenDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateTF.getText());
 	    	int choosenTimeSlote = 0;
 	    	
 	    	switch(timeSlotList.getSelectedValue()) {
@@ -181,7 +177,6 @@ public class EditCleaningServices extends javax.swing.JFrame {
 	    	System.out.println(chosenDate);
 	    	System.out.println(choosenTimeSlote);
 	    	
-	    	hotel.updateCleaningReservation(chosenDate, oldTimeSlot, choosenTimeSlote);
 	    	
 	    	int input = JOptionPane.showOptionDialog(null, "You have successfully updated cleaning service order", "Reservation Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
 
@@ -193,14 +188,14 @@ public class EditCleaningServices extends javax.swing.JFrame {
 
 	    private void timeSlotListValueChanged(javax.swing.event.ListSelectionEvent evt) {
 	        
-	        if(!dateTF.getText().equals("YYYY/MM/DD")){
+	        if(!dateTF.getText().equals("DD/MM/YYYY")){
 	        updateB.setEnabled(true);        
 	        }                          
 	    }
 
 
 	    private javax.swing.JLabel dateL;
-	    private javax.swing.JLabel dateTF;
+	    private javax.swing.JTextField dateTF;
 	    private javax.swing.JLabel headerL;
 	    private javax.swing.JPanel jPanel1;
 	    private javax.swing.JScrollPane jScrollPane1;

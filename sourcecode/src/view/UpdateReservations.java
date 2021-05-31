@@ -6,14 +6,14 @@ public class UpdateReservations extends javax.swing.JFrame{
 	
 	Object[][] tableData;
    
-    public UpdateReservations(Hotel hotel) {
+    public UpdateReservations() {
         
-        initTableMembers(hotel);        
-        initComponents(hotel);   
+        initTableMembers();        
+        initComponents();   
     }
 
 	
-	private void initComponents(Hotel hotel) {
+	private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         reservationsL = new javax.swing.JLabel();
@@ -56,7 +56,7 @@ public class UpdateReservations extends javax.swing.JFrame{
         makeChangesB.setEnabled(false);
         makeChangesB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                makeChangesBActionPerformed(evt, hotel);
+                makeChangesBActionPerformed(evt);
             }
         });
 
@@ -107,31 +107,24 @@ public class UpdateReservations extends javax.swing.JFrame{
         makeChangesB.setEnabled(true);       
     }
 
-    private void makeChangesBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) {
-    	int selectedRow = reservationsT.getSelectedRow();
-        String selectedRoom, selectedUser, selectedDate;
+    private void makeChangesBActionPerformed(java.awt.event.ActionEvent evt) {
+        getDataFromTable();
         
-        selectedRoom = ""+tableData[selectedRow][0];
-        selectedUser = ""+tableData[selectedRow][1];
-        selectedDate = ""+tableData[selectedRow][2];
-        
-        UpdateTheReservation updateTheReservation = new UpdateTheReservation(hotel, selectedRoom, selectedUser, selectedDate);
+        UpdateTheReservation updateTheReservation = new UpdateTheReservation();
         updateTheReservation.setVisible(true);
     }
     
-    private void initTableMembers(Hotel hotel){
+    private void initTableMembers(){
         int column = 3;
-        int row = 0;
-        
-        row = hotel.allRooms.size()+1;
+        int row = 2;
         
         tableData = new Object[row][column];
-
-        for (int i = 1; i <= hotel.allRooms.size(); i++) {
-        	tableData[i][0] = i;
-        	tableData[i][1] = "Guset "+ i;
-        	tableData[i][2] = 20210603+i;
-        }
+        tableData[0][0] = "room1";
+        tableData[0][1] = "user1";
+        tableData[0][2] = "date1";
+        tableData[1][0] = "room2";
+        tableData[1][1] = "user2";
+        tableData[1][2] = "date2";  
     }
     
     private void getDataFromTable(){

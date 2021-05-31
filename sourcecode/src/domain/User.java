@@ -4,10 +4,11 @@ package domain;
 public class User {
 	int IDNumber;
 	String fullName;
-	public String userName;
+	String userName;
 	String password;
 	String emailAddress;
 	String role;
+	int status;
 	
 	
 	public EntryCard getEntryCard()
@@ -15,10 +16,7 @@ public class User {
 		return null;
 	}
 	
-	public void setEntryCard(EntryCard entrycard)
-	{
-		
-	}
+
 	
 	
 }

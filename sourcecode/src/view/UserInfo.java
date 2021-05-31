@@ -26,7 +26,7 @@ public class UserInfo extends JFrame {
 		setResizable(false);
 		setTitle("SM504 - HOTEL RESERVATION SYSTEM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1047, 403);
+		setBounds(100, 100, 1047, 439);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -72,10 +72,10 @@ public class UserInfo extends JFrame {
 		btnStartReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(hotel.getRole().equals("Receptionist")){
-					ReservationWithReceptionist res = new ReservationWithReceptionist(hotel);
+					ReservationWithReceptionist res = new ReservationWithReceptionist();
 					res.setVisible(true);	
 				} else {
-					Reservation res = new Reservation(hotel);
+					Reservation res = new Reservation();
 					res.setVisible(true);
 				}
 			}
@@ -86,7 +86,7 @@ public class UserInfo extends JFrame {
 		btnEditReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(hotel.getRole().equals("Receptionist")){
-					UpdateReservations res = new UpdateReservations(hotel);
+					UpdateReservations res = new UpdateReservations();
 					res.setVisible(true);	
 				}
 			}
@@ -96,12 +96,8 @@ public class UserInfo extends JFrame {
 		
 		btnOrderCleaningReservation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(hotel.currentUser.getEntryCard().getCardNumber()==0) {
-					JOptionPane.showMessageDialog(null, "Make reservaion of the room first");
-				} else {
-					CleaningServiceReservation res = new CleaningServiceReservation(hotel);
-					res.setVisible(true);
-				}
+				CleaningServiceReservation res = new CleaningServiceReservation(hotel);
+				res.setVisible(true);	
 			}
 		});
 		
@@ -109,12 +105,8 @@ public class UserInfo extends JFrame {
 		
 		btnOrderedCleaningReservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(hotel.currentUser.getEntryCard().getCardNumber()==0) {
-					JOptionPane.showMessageDialog(null, "Make reservaion of the room first");
-				} else {
-					UpdateOrderedCleaningServices handleCS = new UpdateOrderedCleaningServices(hotel);
-					handleCS.setVisible(true);
-				}	
+				UpdateOrderedCleaningServices handleCS = new UpdateOrderedCleaningServices();
+				handleCS.setVisible(true);	
 			}
 		});
 		
@@ -122,7 +114,7 @@ public class UserInfo extends JFrame {
 		
 		btnHandleCashPayment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CashPayment handlePayment = new CashPayment(hotel);
+				CashPayment handlePayment = new CashPayment();
 				handlePayment.setVisible(true);	
 			}
 		});
@@ -131,7 +123,7 @@ public class UserInfo extends JFrame {
 		
 		btnMonitorReservations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MonitorReservations monitorReservations = new MonitorReservations(hotel);
+				MonitorReservations monitorReservations = new MonitorReservations();
 				monitorReservations.setVisible(true);	
 			}
 		});
@@ -236,7 +228,8 @@ public class UserInfo extends JFrame {
 		JButton btnApprovals = new JButton("Approvals");
 		btnApprovals.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "This part will be implemented later.");
+				UserApprovals userApprovals = new UserApprovals(hotel);
+				userApprovals.setVisible(true);
 			}
 		});
 		btnApprovals.setBounds(691, 247, 147, 25);
@@ -331,9 +324,11 @@ public class UserInfo extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(JOptionPane.showConfirmDialog(null, "Are you sure to delete your account and exit the system?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+				{
 				hotel.deleteUser(hotel.getIDNumber());
-				JOptionPane.showMessageDialog(null, "Thank you for using HRS!");
 				System.exit(ABORT);
+				}
 			}
 		});
 		deleteOptionMenu.setVisible(true);

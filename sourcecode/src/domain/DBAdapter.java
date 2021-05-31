@@ -1,6 +1,7 @@
 package domain;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBAdapter extends DBSQLiteAdapter implements DB{
 	
@@ -17,13 +18,20 @@ public class DBAdapter extends DBSQLiteAdapter implements DB{
 	
 	@Override
 	public void insertUser(int IDNumber, String fullName, String username, String password, String emailAddress,
-			String role) {
+			String role, int status) {
 		
-		super.insertUser(IDNumber, fullName, username, password, emailAddress, role);
+		super.insertUser(IDNumber, fullName, username, password, emailAddress, role, status);
 	}
 	
 	public void deleteUser(int IDNumber){
 		super.deleteUser(IDNumber);
+	}
+	public void deleteUser(String fullName){
+		super.deleteUser(fullName);
+	}
+	
+	public ArrayList<String> retrieveUsersWithRole(String role) throws ClassNotFoundException {
+		return super.retrieveUsersWithRole(role);
 	}
 	
 	@Override
@@ -46,6 +54,10 @@ public class DBAdapter extends DBSQLiteAdapter implements DB{
     public String getRole(){
     	return super.getRole();
     }
+	@Override
+	public int getUserStatus() {
+		return super.getUserStatus();
+	}
 
 	@Override
 	public void updateUser(int IDNumber, String fullName, String username, String password, String emailAddress, String role) {
