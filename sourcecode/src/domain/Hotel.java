@@ -37,12 +37,53 @@ public class Hotel {
 		
 		if(role.equals("Receptionist")) {
 			this.currentUser = new Receptionist();
+			addRoom(11,false);
+			
+			for(int i = 1; i< 11; i++) {
+				HotelGuest currentHotelGuest = new HotelGuest();
+				
+				EntryCard currentEntryCard =new EntryCard(i);
+				currentEntryCard.setCardNumber(i);
+				Room currentRoom =  new Room(i, true);
+				currentEntryCard.addReservation(currentRoom, i);
+				
+				currentHotelGuest.setEntryCard(currentEntryCard);
+				
+				ArrayList<Integer> occupiedDates = new ArrayList<>();
+				occupiedDates.add(20210602+i);
+				currentRoom.setAvailability(true);
+				currentRoom.makeReservation(currentEntryCard.cardNumber, occupiedDates);
+				
+				hotelGuests.put(i, currentHotelGuest);
+				hotelGuests.get(i).setUserName(i+"");
+			}
+			
+			
 		} else if(role.equals("Guest")) {
 			this.currentUser = new HotelGuest();
+			EntryCard currentEntryCard =new EntryCard(0);
+			currentEntryCard.setCardNumber(0);
+			currentUser.setEntryCard(currentEntryCard);
 		} else if(role.equals("Manager")) {
 			this.currentUser = new HotelManager();
+			addRoom(11,false);
 		}
+		
+		for(int i = 1; i< 11; i ++) {
+			addRoom(i, true);
+		}
+		
+		
+		ArrayList<Integer> availableCleaningDates = new ArrayList<Integer>();
+		
+		for(int i = 20210603; i< 20210631; i++) {
+			availableCleaningDates.add(i);
+		}
+		
+		setAvailableCleaningDates(availableCleaningDates);
+		System.out.println(hotelGuests);
 	}
+	
 	
 	public User getChoosenUser(int entryCardNumber)
 	{
@@ -60,6 +101,7 @@ public class Hotel {
 	public boolean addRoom(int roomNumber, boolean availability) {
 		return allRooms.put(roomNumber, new Room(roomNumber, availability)) != null ;
 	}
+	
 	public boolean deleteRoom(int roomNumber) {
 		if(allRooms.containsKey(roomNumber))
 		{
@@ -100,8 +142,7 @@ public class Hotel {
 	
 	
 	public boolean makeCleaningReservation(int cleaningDate, int cleaningSlot)
-	{
-		
+	{ 
 		Cleaning cleaningReservation = new Cleaning(this);
 		if(cleaningReservation.makeReservation(cleaningDate, cleaningSlot, currentUser.getEntryCard().getRoomNumber(), currentUser.getEntryCard().getCardNumber()))
 		{
@@ -147,7 +188,10 @@ public class Hotel {
 	public boolean makeRoomReservation(int roomNumber, ArrayList<Integer>reservationDates) {
 		if( allRooms.get(roomNumber).makeReservation(getCurrentUser().getEntryCard().getCardNumber(), reservationDates))
 		{
+			currentUser.getEntryCard().setCardNumber(roomNumber);
+			currentUser.getEntryCard().setRoomNumber(roomNumber);
 			currentUser.getEntryCard().addReservation(allRooms.get(roomNumber),currentUser.getEntryCard().getCardNumber());
+			System.out.println("Reservation of the room "+ allRooms.get(roomNumber).roomNumber + " was made for the user "+ getUsername() +" for the folowing period "+ reservationDates);
 			return true;
 		}
 		else
@@ -160,6 +204,7 @@ public class Hotel {
 		if( allRooms.get(roomNumber).makeReservation(entryCardNumber, reservationDates))
 		{
 			getChoosenUser(entryCardNumber).getEntryCard().addReservation(allRooms.get(roomNumber),entryCardNumber);
+			System.out.println("Reservation of the room "+ allRooms.get(roomNumber).roomNumber + " was made for the user "+ getChoosenUser(entryCardNumber).userName +" for the folowing period "+ reservationDates);
 			return true;
 		}
 		else

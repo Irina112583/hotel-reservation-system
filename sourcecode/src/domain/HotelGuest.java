@@ -21,7 +21,16 @@ public class HotelGuest extends User{
 		return entryCard;
 	}
 	
+	public void setEntryCard(EntryCard entryCard)
+	{
+		this.entryCard = entryCard;
+	}
+	
 	public void setUserName(String username) {
 		this.userName = username;
+	}
+	
+	public String getUserName() {
+		return super.userName;
 	}
 }

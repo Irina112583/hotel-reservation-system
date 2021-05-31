@@ -4,7 +4,7 @@ package domain;
 public class User {
 	int IDNumber;
 	String fullName;
-	String userName;
+	public String userName;
 	String password;
 	String emailAddress;
 	String role;
@@ -15,7 +15,10 @@ public class User {
 		return null;
 	}
 	
-
+	public void setEntryCard(EntryCard entrycard)
+	{
+		
+	}
 	
 	
 }
