@@ -13,7 +13,6 @@ import domain.RegisterSingleton;
 import domain.User;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
@@ -23,7 +22,6 @@ public class Login extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	Hotel h = new Hotel();
-	//User u = new User(h);
 
 	public Login() {
 		setBackground(Color.WHITE);
@@ -99,14 +97,16 @@ public class Login extends JFrame {
 			
 			try {
 				if(h.verifyAccount(txtUsername.getText(), txtPassword.getText()) == true){
-					
 					LoginSingleton.disposeInstance();
-					
-						UserInfo userFrame = new UserInfo(h);
-						userFrame.setVisible(true);
-
+					h.init();
+					UserInfo userFrame = new UserInfo(h);
+					userFrame.setVisible(true);
 				}
-
+				else{
+					JOptionPane.showMessageDialog(null, "Authentication denied! "
+							+ "The username or password has been refused by System."
+							+ " Please try again.");
+				}
 			} catch (ClassNotFoundException e1) {
 				e1.printStackTrace();
 			}

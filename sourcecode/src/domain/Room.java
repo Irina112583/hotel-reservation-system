@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Room implements Reservation{
-	private int roomNumber;
+	public int roomNumber;
 	HashMap<Integer, ArrayList<Integer>> occupiedDates = new HashMap<Integer, ArrayList<Integer>>();
 	private boolean availability;
 	private final int roomPrice = 200;
@@ -76,11 +76,11 @@ public class Room implements Reservation{
 			{
 				if(occupiedDates.get(i).contains(j))
 				{
-					return true;
+					return false;
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	public int getReservationCharge(int cardNumber) {

@@ -14,12 +14,11 @@ import domain.Room;
 
 public class Reservation extends javax.swing.JFrame {
 	
-	public Reservation() {
-        initComponents();
+	public Reservation(Hotel hotel) {
+        initComponents(hotel);
     }
 	
-    @SuppressWarnings("unchecked")
-    private void initComponents() {
+    private void initComponents(Hotel hotel) {
     	
     	jPanel1 = new javax.swing.JPanel();
         checkoutL = new javax.swing.JLabel();
@@ -60,7 +59,7 @@ public class Reservation extends javax.swing.JFrame {
         reserveB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
-					reserveBActionPerformed(evt);
+					reserveBActionPerformed(evt, hotel);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -68,9 +67,9 @@ public class Reservation extends javax.swing.JFrame {
             }
         });
 
-        checkoutFF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/y"))));
+        checkoutFF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy/MM/dd"))));
         checkoutFF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        checkoutFF.setText("5/5/2021");
+        checkoutFF.setText("YYYY/MM/DD");
         checkoutFF.setVisible(false);
 
         checkoutB.setText("Enter");
@@ -78,7 +77,7 @@ public class Reservation extends javax.swing.JFrame {
         checkoutB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
-					enterBActionPerformed(evt);
+					enterBActionPerformed(evt, hotel);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -93,9 +92,10 @@ public class Reservation extends javax.swing.JFrame {
         
         checkinL.setText("Please, enter check-in date:");
 
-        checkinFF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/y"))));
+        checkinFF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy/MM/dd"))));
         checkinFF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        checkinFF.setText("1/1/2001");
+        checkinFF.setText("YYYY/MM/DD");
+        
 
         checkinB.setText("Enter");
         checkinB.addActionListener(new java.awt.event.ActionListener() {
@@ -180,38 +180,69 @@ public class Reservation extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void reserveBActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {
-        String roomName = roomsList.getSelectedValue();
+    private void reserveBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) throws ParseException {
         
-        Hotel hotel = new Hotel();
+    	String chechoutDateFromTextField= checkoutFF.getText();
+    	String cleanCheckoutDate = chechoutDateFromTextField.replaceAll("/", "");
+    	int parsedCheckoutDate = Integer.parseInt(cleanCheckoutDate);
+    	
+    	String checkinDateFromTextField= checkinFF.getText();
+    	String cleanCheckinDate = checkinDateFromTextField.replaceAll("/", "");
+    	int parsedCheckinDate = Integer.parseInt(cleanCheckinDate);
+    	
+        ArrayList<Integer> requestedDates = new ArrayList<Integer>();
         
-        Date checkoutDate = new SimpleDateFormat("dd/MM/yyyy").parse(checkoutFF.getText());
-        int input = JOptionPane.showOptionDialog(null, "Please, ask receptionst for you entry card", "Reservation Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
-
-        if(input == JOptionPane.OK_OPTION)
-        {
-        	this.setVisible(false);
+        requestedDates.add(parsedCheckinDate);
+        for(int i = parsedCheckinDate+1; i < parsedCheckoutDate; i++) {
+        	requestedDates.add(i);
         }
+        requestedDates.add(parsedCheckoutDate);
+
+    	boolean result = hotel.makeRoomReservation(Integer.parseInt(roomsList.getSelectedValue()), requestedDates);
+    	
+    	if(result) {
+    		int input = JOptionPane.showOptionDialog(null, "Please, ask receptionst for you entry card", "Reservation Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
+
+            if(input == JOptionPane.OK_OPTION)
+            {
+            	this.setVisible(false);
+            }
+    	} else {
+    		int input = JOptionPane.showOptionDialog(null, "Reservation did not successfully comlete", "Error!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, "OK");
+
+            if(input == JOptionPane.OK_OPTION)
+            {
+            	this.setVisible(false);
+            }
+    	}
+        
     }
 
-    private void enterBActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {
+    private void enterBActionPerformed(java.awt.event.ActionEvent evt, Hotel hotel) throws ParseException {
     	roomsL.setVisible(true);
         roomsSP.setVisible(true);
         
+        String chechoutDateFromTextField= checkoutFF.getText();
+    	String cleanCheckoutDate = chechoutDateFromTextField.replaceAll("/", "");
+    	int parsedChecoutDate = Integer.parseInt(cleanCheckoutDate);
+    	
+    	String checkinDateFromTextField= checkinFF.getText();
+    	String cleanCheckinDate = checkinDateFromTextField.replaceAll("/", "");
+    	int parsedCheckinDate = Integer.parseInt(cleanCheckinDate);
+    	
+        ArrayList<Integer> requestedDates = new ArrayList<Integer>();
+        
+        requestedDates.add(parsedCheckinDate);
+        requestedDates.add(parsedChecoutDate);
+        
+        ArrayList<Integer> freeRooms = hotel.getFreeRooms(requestedDates); 
         ArrayList<String> roomNames = new ArrayList<String>(); 
 
         roomNames.clear();
         
-        roomNames.add("Room 1");
-        roomNames.add("Room 2");
-        roomNames.add("Room 3");
-        roomNames.add("Room 4");
-        roomNames.add("Room 5");
-        roomNames.add("Room 6");
-        roomNames.add("Room 7");
-        roomNames.add("Room 8");
-        roomNames.add("Room 9");
-        roomNames.add("Room 10");
+        for(int i = 0; i < freeRooms.size(); i++) {
+        	roomNames.add(freeRooms.get(i).toString());
+        }
         
         
         if (roomNames.size() != 0 ) {
