@@ -32,8 +32,13 @@ Documents, related to the Iteration III are listed below: 
 2. Iteration 4 plan - 'Iteration Plan4.docx'
 2. Architecture Notebook - 'ArchitectureNotebook.docx'
 3. Design Document - 'Design Document.docx'
-4. Test Cases - 'Test Cases_v1.0.docx'
+4. Test Cases - 'Test Cases.docx'
 5. Source code - all files if the folder 'sourcecode'
-6. Executable partial system - all files in executable folder
+6. Executable partial system - executables/v3.1/HRSv3.1/HRSv3.1.jar
+7. Test log - 'TestLog.docx'
+
+TESTING INSTRUCTIONS:
+1. In order to test the product the tester needs to download Executable partial system(executables/v3.1/HRSv3.1/HRSv3.1.jar) and database(executables/v3.1/HRSv3.1/HRSDB.db)
+2. Dowload 'Test Cases.docx' and 'TestLog.docx' and run specified scenarios, all additional deatil about each scenario are spcifed in "Additional comments" column of 'Test Cases.docx'
 
 All necessary documents are located in the main branch.
