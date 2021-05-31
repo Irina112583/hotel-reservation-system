@@ -8,7 +8,7 @@ public class Room implements Reservation{
 	public int roomNumber;
 	HashMap<Integer, ArrayList<Integer>> occupiedDates = new HashMap<Integer, ArrayList<Integer>>();
 	private boolean availability;
-	private final int roomPrice = 200;
+	private final int roomPrice = 250;
 	
 	
 	public Room(int roomNumber, boolean availability){

@@ -102,11 +102,6 @@ public class Login extends JFrame {
 					UserInfo userFrame = new UserInfo(h);
 					userFrame.setVisible(true);
 				}
-				else{
-					JOptionPane.showMessageDialog(null, "Authentication denied! "
-							+ "The username or password has been refused by System."
-							+ " Please try again.");
-				}
 			} catch (ClassNotFoundException e1) {
 				e1.printStackTrace();
 			}
@@ -114,10 +109,6 @@ public class Login extends JFrame {
 		});
 		btnLogin.setBounds(224, 485, 300, 25);
 		pnlLogin.add(btnLogin);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 10, 10);
-		pnlLogin.add(panel);
 		
 		
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="sourcecode/src"/>
+	<classpathentry kind="src" path="sourcecode/v3.1/src"/>
+	<classpathentry kind="lib" path="executables/HRS.jar"/>
+	<classpathentry kind="lib" path="executables/v3.1/HRSv3.1/HRSv3.1.jar"/>
+	<classpathentry kind="output" path="sourcecode/bin"/>
+</classpath>

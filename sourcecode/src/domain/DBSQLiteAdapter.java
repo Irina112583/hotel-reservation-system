@@ -2,6 +2,7 @@ package domain;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
@@ -232,4 +233,32 @@ public class DBSQLiteAdapter{
     public void setUserStatus(int userStatus){
      	DBSQLiteAdapter.userStatus = userStatus;
      }
+
+
+    public void getOccupiedRooms() throws SQLException{
+    	
+//    	HashMap<Integer, ArrayList<Integer>> occupiedDates = new HashMap<Integer, ArrayList<Integer>>();
+//    	
+//    	String sql = "SELECT OccupiedDate, OccupiedRoom FROM OccupiedDates";
+//    	Connection conn;
+//		try {
+//			conn = this.connect();
+//	        Statement stmt  = conn.createStatement();
+//	        ResultSet rs    = stmt.executeQuery(sql);
+//	        
+//	        while (rs.next()){
+//	            HashMap row = new HashMap(columns);
+//	            for(int i=1; i<=columns; ++i){           
+//	             row.put(md.getColumnName(i),rs.getObject(i));
+//	            }
+//	             list.add(row);
+//	         }
+//	        
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		}
+
+    }
+
+
 }

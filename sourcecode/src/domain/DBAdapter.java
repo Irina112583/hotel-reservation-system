@@ -66,4 +66,9 @@ public class DBAdapter extends DBSQLiteAdapter implements DB{
 		super.updateUser(IDNumber, fullName, username, password, emailAddress, role);
 	}
 
+	@Override
+	public void getAllRooms() {
+				
+	}
+
 }

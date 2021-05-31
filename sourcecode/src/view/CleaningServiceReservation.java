@@ -7,6 +7,12 @@ import javax.swing.JOptionPane;
 
 import domain.Hotel;
 import domain.User;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CleaningServiceReservation extends javax.swing.JFrame{
 	 public CleaningServiceReservation(Hotel hotel) {
@@ -70,64 +76,84 @@ public class CleaningServiceReservation extends javax.swing.JFrame{
 	        dateTF.setFont(new java.awt.Font("Tahoma", 0, 14));
 	        dateTF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 	        dateTF.setText("YYYY/MM/DD");
+	        
+	        lblCloseReservationPage = new JLabel();
+	        lblCloseReservationPage.addMouseListener(new MouseAdapter() {
+	        	@Override
+	        	public void mouseClicked(MouseEvent e) {
+	        		dispose();
+	        	}
+	        });
+	        lblCloseReservationPage.setText("Close Reservation Page");
 
 	        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-	        jPanel1.setLayout(jPanel1Layout);
 	        jPanel1Layout.setHorizontalGroup(
-	            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	            .addGroup(jPanel1Layout.createSequentialGroup()
-	                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-	                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	                            .addComponent(headerL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-	                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                                .addGap(22, 22, 22))))
-	                    .addGroup(jPanel1Layout.createSequentialGroup()
-	                        .addGap(160, 160, 160)
-	                        .addComponent(dateL)
-	                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-	                        .addComponent(timeSlotL, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                        .addGap(56, 56, 56))
-	                    .addGroup(jPanel1Layout.createSequentialGroup()
-	                        .addGap(160, 160, 160)
-	                        .addComponent(dateTF, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                        .addGap(0, 0, Short.MAX_VALUE)))
-	                .addGap(91, 91, 91))
-	            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-	                .addGap(0, 0, Short.MAX_VALUE)
-	                .addComponent(reserveB, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                .addGap(234, 234, 234))
+	        	jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+	        		.addGroup(jPanel1Layout.createSequentialGroup()
+	        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+	        				.addGroup(jPanel1Layout.createSequentialGroup()
+	        					.addContainerGap(107, Short.MAX_VALUE)
+	        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+	        						.addComponent(headerL, GroupLayout.PREFERRED_SIZE, 504, GroupLayout.PREFERRED_SIZE)
+	        						.addGroup(jPanel1Layout.createSequentialGroup()
+	        							.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 224, GroupLayout.PREFERRED_SIZE)
+	        							.addGap(22))))
+	        				.addGroup(Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+	        					.addGap(160)
+	        					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+	        						.addGroup(jPanel1Layout.createSequentialGroup()
+	        							.addComponent(dateL)
+	        							.addPreferredGap(ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+	        							.addComponent(timeSlotL, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
+	        							.addGap(58))
+	        						.addGroup(jPanel1Layout.createSequentialGroup()
+	        							.addComponent(dateTF, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+	        							.addPreferredGap(ComponentPlacement.RELATED, 334, Short.MAX_VALUE)))))
+	        			.addGap(91))
+	        		.addGroup(jPanel1Layout.createSequentialGroup()
+	        			.addGap(0, 224, Short.MAX_VALUE)
+	        			.addComponent(reserveB, GroupLayout.PREFERRED_SIZE, 244, GroupLayout.PREFERRED_SIZE)
+	        			.addGap(78)
+	        			.addComponent(lblCloseReservationPage, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+	        			.addContainerGap())
 	        );
 	        jPanel1Layout.setVerticalGroup(
-	            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	            .addGroup(jPanel1Layout.createSequentialGroup()
-	                .addContainerGap()
-	                .addComponent(headerL)
-	                .addGap(71, 71, 71)
-	                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-	                    .addComponent(dateL)
-	                    .addComponent(timeSlotL))
-	                .addGap(18, 18, 18)
-	                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                    .addComponent(dateTF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-	                .addGap(18, 18, 18)
-	                .addComponent(reserveB, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                .addContainerGap(44, Short.MAX_VALUE))
+	        	jPanel1Layout.createParallelGroup(Alignment.LEADING)
+	        		.addGroup(jPanel1Layout.createSequentialGroup()
+	        			.addContainerGap()
+	        			.addComponent(headerL)
+	        			.addGap(44)
+	        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+	        				.addComponent(dateL)
+	        				.addComponent(timeSlotL))
+	        			.addPreferredGap(ComponentPlacement.UNRELATED)
+	        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+	        				.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(dateTF, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
+	        			.addGroup(jPanel1Layout.createParallelGroup(Alignment.TRAILING)
+	        				.addGroup(jPanel1Layout.createSequentialGroup()
+	        					.addGap(18)
+	        					.addComponent(reserveB, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+	        					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	        				.addGroup(jPanel1Layout.createSequentialGroup()
+	        					.addPreferredGap(ComponentPlacement.RELATED)
+	        					.addComponent(lblCloseReservationPage)
+	        					.addContainerGap())))
 	        );
+	        jPanel1.setLayout(jPanel1Layout);
 
 	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-	        getContentPane().setLayout(layout);
 	        layout.setHorizontalGroup(
-	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	        	layout.createParallelGroup(Alignment.LEADING)
+	        		.addComponent(jPanel1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
 	        );
 	        layout.setVerticalGroup(
-	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	        	layout.createParallelGroup(Alignment.LEADING)
+	        		.addGroup(layout.createSequentialGroup()
+	        			.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 428, GroupLayout.PREFERRED_SIZE)
+	        			.addContainerGap(23, Short.MAX_VALUE))
 	        );
+	        getContentPane().setLayout(layout);
 
 	        pack();
 	    }
@@ -215,5 +241,6 @@ public class CleaningServiceReservation extends javax.swing.JFrame{
 	    private javax.swing.JButton reserveB;
 	    private javax.swing.JLabel timeSlotL;
 	    private javax.swing.JList<String> timeSlotList;
+	    private JLabel lblCloseReservationPage;
 
 }

@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
@@ -163,7 +164,7 @@ public class Registration extends JFrame {
 		Hotel hotel = new Hotel();
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				hotel.insertUser(Integer.parseInt(txtID.getText()), txtName.getText(),txtUsername.getText(),txtPassword.getText(),txtEmailAddress.getText(), cmbRole.getSelectedItem().toString(), cmbRole.getSelectedIndex());
+					hotel.insertUser(Integer.parseInt(txtID.getText()), txtName.getText(),txtUsername.getText(),txtPassword.getText(),txtEmailAddress.getText(), cmbRole.getSelectedItem().toString(), cmbRole.getSelectedIndex());	
 			}
 		});
 		btnSignUp.setBounds(224, 787, 300, 25);

@@ -26,7 +26,7 @@ public class UserInfo extends JFrame {
 		setResizable(false);
 		setTitle("SM504 - HOTEL RESERVATION SYSTEM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1047, 403);
+		setBounds(100, 100, 1047, 446);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -136,27 +136,23 @@ public class UserInfo extends JFrame {
 			}
 		});
 		
-		btnStartReservation.setBounds(861, 247, 147, 25);
+		btnStartReservation.setBounds(784, 247, 224, 25);
 		pnlRegister.add(btnStartReservation);
 		
-		btnEditReservation.setBounds(861, 287, 147, 25);
+		btnEditReservation.setBounds(784, 292, 224, 25);
 		pnlRegister.add(btnEditReservation);
 		
-		btnOrderCleaningReservation.setBounds(551, 247, 247, 25);
+		btnOrderCleaningReservation.setBounds(522, 247, 247, 25);
 		pnlRegister.add(btnOrderCleaningReservation);
 		
-		btnOrderedCleaningReservations.setBounds(551, 287, 247, 25);
+		btnOrderedCleaningReservations.setBounds(522, 292, 247, 25);
 		pnlRegister.add(btnOrderedCleaningReservations);
 		
-		btnHandleCashPayment.setBounds(551, 247, 247, 25);
+		btnHandleCashPayment.setBounds(522, 247, 247, 25);
 		pnlRegister.add(btnHandleCashPayment);
 		
-		btnMonitorReservations.setBounds(661, 327, 247, 25);
+		btnMonitorReservations.setBounds(784, 335, 224, 25);
 		pnlRegister.add(btnMonitorReservations);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 10, 10);
-		pnlRegister.add(panel);
 		
 		JLabel lblRetypePassword = new JLabel("Repeat Password:");
 		lblRetypePassword.setVisible(false);
@@ -240,7 +236,7 @@ public class UserInfo extends JFrame {
  				userApprovals.setVisible(true);
 			}
 		});
-		btnApprovals.setBounds(691, 247, 147, 25);
+		btnApprovals.setBounds(622, 247, 147, 25);
 		btnApprovals.setVisible(false);
 		pnlRegister.add(btnApprovals);
 		
@@ -250,7 +246,7 @@ public class UserInfo extends JFrame {
 				JOptionPane.showMessageDialog(null, "This part will be implemented later.");
 			}
 		});
-		btnMonitorSystem.setBounds(691, 292, 147, 25);
+		btnMonitorSystem.setBounds(622, 292, 147, 25);
 		btnMonitorSystem.setVisible(false);
 		pnlRegister.add(btnMonitorSystem);
 		
